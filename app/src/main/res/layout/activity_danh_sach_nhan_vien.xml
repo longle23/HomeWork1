@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DanhSachNhanVienActivity">
+
+
+    <TextView
+        android:id="@+id/danhSachNhanVien_textView_danhSachNV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="15dp"
+        android:text="Danh sách nhân viên"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/main.inputLayout.timKiemNV"-->
+    <!--        android:layout_width="346dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:paddingTop="20dp"-->
+    <!--        android:ime>-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/main.editText.timKiemNV"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="Nhập để tìm kiếm" />-->
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <EditText
+        android:id="@+id/main.editText.timKiemNV"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableRight="@drawable/ic_baseline_search_24"
+        android:imeOptions="actionSearch"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/danhSachNhanVien_textView_ketQua"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="35dp"
+        android:paddingTop="15dp"
+        android:text="Kết quả"
+        android:visibility="invisible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/danhSachNhanVien_recyclerView_listNV"
+        android:layout_width="350dp"
+        android:layout_height="550dp"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/danhSachNhanVien_imageView_notify"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="110dp"
+        android:src="@drawable/ic_baseline_close_24"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/danhSachNhanVien_editText_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Không tìm thấy dữ liệu"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</LinearLayout>
