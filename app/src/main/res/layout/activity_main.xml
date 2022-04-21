@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="50dp"
         android:paddingTop="20dp"
+        android:textColor="#FF0000"
         android:text="" />
 
     <ProgressBar

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,7 +119,7 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AppShared", MODE_PRIVATE);
 //        sharedPreferences.getString("token", "");
         String token = sharedPreferences.getString("token", "");
-//        Toast.makeText(DanhSachNhanVienActivity.this, temp, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(DanhSachNhanVienActivity.this, token, Toast.LENGTH_SHORT).show();
         return token;
     }
 
@@ -147,7 +148,7 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 // Test ket qua response tra ve du lieu la gi
-//                Log.d("TAG", "onResponse: "+ bodyToString(call.request().body()));
+//                Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
 
                 // Lay các trường trong Json tra ve
                 String jsonResponse = response.body().toString();
@@ -174,10 +175,12 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
 
                             employee = new Employee();
 
+                            String empID = jsonObject1.getString("empID");
                             String item1 = jsonObject1.getString("item1");
                             String item2 = jsonObject1.getString("item2");
                             String item4 = jsonObject1.getString("item4");
                             String avatar = jsonObject1.getString("avatar");
+                            employee.setEmpID(empID);
                             employee.setItem1(item1);
                             employee.setItem2(item2);
                             employee.setItem4(item4);
@@ -225,7 +228,7 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
         binding.danhSachNhanVienEditTextNotify.setVisibility(View.VISIBLE);
     }
 
-    private void hienDSKhiCoDuLieu(){
+    private void hienDSKhiCoDuLieu() {
         binding.danhSachNhanVienTextViewKetQua.setVisibility(View.VISIBLE);
         binding.danhSachNhanVienRecyclerViewListNV.setVisibility(View.VISIBLE);
         binding.danhSachNhanVienImageViewNotify.setVisibility(View.GONE);
