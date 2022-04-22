@@ -80,6 +80,7 @@ public class ThongTinNhanVienActivity extends AppCompatActivity {
         binding.thongTinNhanVienTextViewTenNV.setText(item1);
         binding.thongTinNhanVienTextViewChucVuNV.setText(item2);
 
+        // Call API
         goiAPI_HienThiFuncion(layToken());
 
         // Set Adapter
