@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fis.ihrp.longlh.homework1.DanhSachNhanVienActivity;
+import fis.ihrp.longlh.homework1.DanhSachNhanVienFragment;
 import fis.ihrp.longlh.homework1.R;
 import fis.ihrp.longlh.homework1.ThongTinNhanVienActivity;
 import fis.ihrp.longlh.homework1.model.Employee;
@@ -43,7 +44,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         this.listEmployee = listEmployee;
         this.context = context;
     }
-
 
     @NonNull
     @Override

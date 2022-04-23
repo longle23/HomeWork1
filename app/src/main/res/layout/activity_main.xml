@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -28,7 +27,7 @@
                 android:layout_marginTop="40dp"
                 android:gravity="center"
                 android:text="HỆ THỐNG QUẢN TRỊ NHÂN SỰ"
-                android:textColor="#2596be"
+                android:textColor="#0077EE"
                 android:textSize="23dp"
                 android:textStyle="bold" />
 
@@ -87,7 +86,7 @@
                 android:layout_width="336dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#2596be"
+                android:backgroundTint="#0077EE"
                 android:text="ĐĂNG NHẬP" />
 
         </LinearLayout>
