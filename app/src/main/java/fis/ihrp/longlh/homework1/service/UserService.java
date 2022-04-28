@@ -4,7 +4,9 @@ import com.google.gson.JsonObject;
 
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
+import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoginRequest;
+import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -27,5 +29,11 @@ public interface UserService {
 
     @POST("api/v1/function/property/list")
     Call<JsonObject> listFuncion(@Body ListFuncionRequest listFuncionRequest);
+
+    @POST("api/v1/workflow1/list")
+    Call<JsonObject> loaiNghiFuncion(@Body LoaiNghiRequest loaiNghiRequest);
+
+    @POST("api/v1/workflow1/view/approver")
+    Call<JsonObject> loadNguoiKiemDuyet(@Body NguoiKiemDuyetRequest nguoiKiemDuyetRequest);
 
 }

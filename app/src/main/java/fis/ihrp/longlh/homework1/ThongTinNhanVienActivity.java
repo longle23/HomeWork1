@@ -144,6 +144,7 @@ public class ThongTinNhanVienActivity extends AppCompatActivity {
 
                         funcion.setFunctionName(funcionName);
                         funcion.setSrc(src);
+
                         listFuncion.add(funcion);
                     }
 
