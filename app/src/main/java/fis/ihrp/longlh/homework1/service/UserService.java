@@ -7,6 +7,7 @@ import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoginRequest;
 import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetRequest;
+import fis.ihrp.longlh.homework1.model.TinhPhepRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -35,5 +36,8 @@ public interface UserService {
 
     @POST("api/v1/workflow1/view/approver")
     Call<JsonObject> loadNguoiKiemDuyet(@Body NguoiKiemDuyetRequest nguoiKiemDuyetRequest);
+
+    @POST("api/v1/workflow1/requester/create")
+    Call<JsonObject> chuyenDuyet(@Body TinhPhepRequest tinhPhepRequest);
 
 }

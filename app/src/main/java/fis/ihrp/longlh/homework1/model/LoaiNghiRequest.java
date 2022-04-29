@@ -16,8 +16,7 @@ public class LoaiNghiRequest {
 
     @SerializedName("DataHeader")
     @Expose
-    private List<ListFuncionRequest.Param> dataHeader = null;
-
+    private List<Param> dataHeader = null;
     @SerializedName("LangID")
     @Expose
     private String langID;
@@ -34,11 +33,11 @@ public class LoaiNghiRequest {
         this.appVersion = appVersion;
     }
 
-    public List<ListFuncionRequest.Param> getDataHeader() {
+    public List<Param> getDataHeader() {
         return dataHeader;
     }
 
-    public void setDataHeader(List<ListFuncionRequest.Param> dataHeader) {
+    public void setDataHeader(List<Param> dataHeader) {
         this.dataHeader = dataHeader;
     }
 
@@ -58,7 +57,7 @@ public class LoaiNghiRequest {
         this.stoken = stoken;
     }
 
-    public LoaiNghiRequest(String appVersion, List<ListFuncionRequest.Param> dataHeader, String langID, String stoken) {
+    public LoaiNghiRequest(String appVersion, List<Param> dataHeader, String langID, String stoken) {
         this.appVersion = appVersion;
         this.dataHeader = dataHeader;
         this.langID = langID;
@@ -80,7 +79,7 @@ public class LoaiNghiRequest {
             F = f;
         }
 
-        public Param(){
+        public Param() {
 
         }
 

@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeWork1">
+
+
+
         <activity
             android:name=".DangKyNghiActivity"
             android:exported="false" />
@@ -23,6 +26,8 @@
         <meta-data
             android:name="Replace_your_package_name.UnsafeOkHttpClient"
             android:value="MyGlideModule" />
+
+
 
         <activity
             android:name=".DanhSachNhanVienActivity"
@@ -36,6 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

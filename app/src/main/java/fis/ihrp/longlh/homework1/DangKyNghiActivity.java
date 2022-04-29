@@ -10,9 +10,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
@@ -28,12 +30,16 @@ import java.util.Locale;
 
 import fis.ihrp.longlh.homework1.databinding.ActivityDangKyNghiBinding;
 import fis.ihrp.longlh.homework1.databinding.ActivityMainBinding;
+import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.Funcion;
 import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiResponse;
+import fis.ihrp.longlh.homework1.model.LoginRequest;
 import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetRequest;
 import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetResponse;
+import fis.ihrp.longlh.homework1.model.TinhPhepRequest;
+import fis.ihrp.longlh.homework1.model.TinhPhepResponse;
 import fis.ihrp.longlh.homework1.service.RetrofitClient;
 import fis.ihrp.longlh.homework1.service.UserService;
 import okhttp3.RequestBody;
@@ -46,6 +52,7 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
     private LoaiNghiResponse loaiNghiResponse;
     private NguoiKiemDuyetResponse nguoiKiemDuyetResponse;
+    private TinhPhepResponse tinhPhepResponse;
 
     // Khai bao bien binding
     private ActivityDangKyNghiBinding binding;
@@ -56,10 +63,14 @@ public class DangKyNghiActivity extends AppCompatActivity {
     // ArrayList trong AutoCompleteTextView
     private List<String> listLoaiNghi = new ArrayList<>();
     private ArrayAdapter<String> adapterLoaiNghi;
+    // List de lay Id Loai Nghi
+    private List<LoaiNghiResponse> listLoaiNghi2 = new ArrayList<>();
 
     // Khai báo Calendar
     final Calendar myCalendar = Calendar.getInstance();
 
+    // Khai bao bien idLoaiNghi
+    String idLoaiNghi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +94,17 @@ public class DangKyNghiActivity extends AppCompatActivity {
         goiAPI_GetLoaiNghi(layToken());
 
         // Set Adapter Loai Nghi
+        // Set 2 list, 1 list de show ten loai nghi, 1 de lay Id loai nghi
         adapterLoaiNghi = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listLoaiNghi);
         binding.dangKyNghiAutoCompleteLoaiNghi.setAdapter(adapterLoaiNghi);
+        binding.dangKyNghiAutoCompleteLoaiNghi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(DangKyNghiActivity.this, "position" + i, Toast.LENGTH_SHORT).show();
+                idLoaiNghi = listLoaiNghi2.get(i).getId();
+//                Toast.makeText(DangKyNghiActivity.this, "Id " + idLoaiNghi, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Setup Calendar Tu Ngay
         DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
@@ -126,13 +146,7 @@ public class DangKyNghiActivity extends AppCompatActivity {
         goiAPI_NguoiKiemDuyet(layToken());
 
         // Set su kien Click Tinh Phep
-        binding.dangKyNghiButtonTinhPhep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
+        xuLyTinhPhep();
 
     }
 
@@ -152,8 +166,8 @@ public class DangKyNghiActivity extends AppCompatActivity {
         userService4 = RetrofitClient.getClient();
 
         // Set du lieu vao DataHeader
-        List<ListFuncionRequest.Param> params = new ArrayList<>();
-        ListFuncionRequest.Param param = new ListFuncionRequest.Param();
+        List<LoaiNghiRequest.Param> params = new ArrayList<>();
+        LoaiNghiRequest.Param param = new LoaiNghiRequest.Param();
         param.setF("1");
         params.add(param);
 
@@ -186,11 +200,13 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
                         String id = jsonObject1.getString("id");
                         String nameEN = jsonObject1.getString("nameEN");
-
                         listLoaiNghi.add(nameEN);
-                    }
-                    adapterLoaiNghi.notifyDataSetChanged();
 
+                        ///// Lay data vao list thu 2
+                        loaiNghiResponse.setId(id);
+                        loaiNghiResponse.setNameEN(nameEN);
+                        listLoaiNghi2.add(loaiNghiResponse);
+                    }
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());
                 }
@@ -204,19 +220,19 @@ public class DangKyNghiActivity extends AppCompatActivity {
     }
 
     // Lay request tra ve
-//    private String bodyToString(final RequestBody request) {
-//        try {
-//            final RequestBody copy = request;
-//            final Buffer buffer = new Buffer();
-//            if (copy != null)
-//                copy.writeTo(buffer);
-//            else
-//                return "";
-//            return buffer.readUtf8();
-//        } catch (final IOException e) {
-//            return "did not work";
-//        }
-//    }
+    private String bodyToString(final RequestBody request) {
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if (copy != null)
+                copy.writeTo(buffer);
+            else
+                return "";
+            return buffer.readUtf8();
+        } catch (final IOException e) {
+            return "did not work";
+        }
+    }
 
     private void updateLabelTuNgay() {
         String myFormat = "dd/MM/yyyy";
@@ -237,8 +253,8 @@ public class DangKyNghiActivity extends AppCompatActivity {
         userService4 = RetrofitClient.getClient();
 
         // Set du lieu vao DataHeader
-        List<ListFuncionRequest.Param> params = new ArrayList<>();
-        ListFuncionRequest.Param param = new ListFuncionRequest.Param();
+        List<NguoiKiemDuyetRequest.Param> params = new ArrayList<>();
+        NguoiKiemDuyetRequest.Param param = new NguoiKiemDuyetRequest.Param();
         param.setF("1");
         params.add(param);
 
@@ -281,6 +297,75 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void xuLyTinhPhep() {
+        binding.dangKyNghiButtonTinhPhep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lay du lieu de Call API
+                String token = layToken();
+                String tuNgay = binding.dangKyNghiEditTextTuNgay.getText().toString();
+                String denNgay = binding.dangKyNghiEditTextDenNgay.getText().toString();
+
+                // Khoi tao API
+                userService4 = RetrofitClient.getClient();
+
+                // Set du lieu vao DataHeader
+                List<TinhPhepRequest.Param> params = new ArrayList<>();
+                TinhPhepRequest.Param param = new TinhPhepRequest.Param();
+                param.setAP1("0");
+                param.setAP2("0");
+                param.setFromDate(tuNgay);
+                param.setIsFromTom("");
+                param.setIsToTom("");
+                param.setLeaveTypeID(idLoaiNghi);
+                param.setToDate(denNgay);
+                params.add(param);
+
+                // Khoi tao Request Model
+                TinhPhepRequest model3 = new TinhPhepRequest();
+                model3.setAppVersion("V33.PNJ.20200827.2");
+                model3.setDataHeader(params);
+                model3.setLangID("vn");
+                model3.setStoken(token);
+
+                userService4.tinhPhep(model3).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        try {
+                            // Kiem tra du lieu khi call
+                            Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
+
+                            // Lay các trường trong Json tra ve
+                            String jsonResponse = response.body().toString();
+
+                            JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                            JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
+
+                            for (int i = 0; i < dataItemResponse.length(); i++) {
+                                JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
+
+                                tinhPhepResponse = new TinhPhepResponse();
+
+                                String soNgayNghi = jsonObject1.getString("soNgayNghi");
+
+                                binding.dangKyNghiEditTextNgayNghi.setText(soNgayNghi);
+                            }
+                        } catch (Exception e) {
+                            Log.d("TAG Message", e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                    }
+                });
 
             }
         });
