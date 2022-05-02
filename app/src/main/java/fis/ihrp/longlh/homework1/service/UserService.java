@@ -2,6 +2,7 @@ package fis.ihrp.longlh.homework1.service;
 
 import com.google.gson.JsonObject;
 
+import fis.ihrp.longlh.homework1.model.ChuyenDuyetRequest;
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
@@ -37,7 +38,10 @@ public interface UserService {
     @POST("api/v1/workflow1/view/approver")
     Call<JsonObject> loadNguoiKiemDuyet(@Body NguoiKiemDuyetRequest nguoiKiemDuyetRequest);
 
+    @POST("api/v1/workflow1/view/calculate")
+    Call<JsonObject> tinhPhep(@Body TinhPhepRequest tinhPhepRequest);
+
     @POST("api/v1/workflow1/requester/create")
-    Call<JsonObject> chuyenDuyet(@Body TinhPhepRequest tinhPhepRequest);
+    Call<JsonObject> chuyenDuyet(@Body ChuyenDuyetRequest chuyenDuyetRequest);
 
 }

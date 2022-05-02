@@ -38,6 +38,11 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         return true;
 
+                    case R.id.navigation_donNghi:
+                        fragment = new DangKyFragment();
+                        loadFragment(fragment);
+                        return true;
+
                 }
                 return false;
             }

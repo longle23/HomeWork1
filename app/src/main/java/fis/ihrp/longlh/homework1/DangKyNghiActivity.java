@@ -2,6 +2,7 @@ package fis.ihrp.longlh.homework1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
@@ -30,6 +31,9 @@ import java.util.Locale;
 
 import fis.ihrp.longlh.homework1.databinding.ActivityDangKyNghiBinding;
 import fis.ihrp.longlh.homework1.databinding.ActivityMainBinding;
+import fis.ihrp.longlh.homework1.dialog.ThanhCongDialog;
+import fis.ihrp.longlh.homework1.dialog.ThatBaiDialog;
+import fis.ihrp.longlh.homework1.model.ChuyenDuyetRequest;
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.Funcion;
 import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
@@ -71,6 +75,9 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
     // Khai bao bien idLoaiNghi
     String idLoaiNghi;
+
+    // Khai bao bien idNguoiDuyet
+    String approverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +155,8 @@ public class DangKyNghiActivity extends AppCompatActivity {
         // Set su kien Click Tinh Phep
         xuLyTinhPhep();
 
+        // Set su kien Click Chuyen Duyet
+        xuLyChuyenDuyet();
     }
 
     // Ham tra ve Token de goi API
@@ -285,7 +294,7 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
                         nguoiKiemDuyetResponse = new NguoiKiemDuyetResponse();
 
-                        String approverID = jsonObject1.getString("approverID");
+                        approverID = jsonObject1.getString("approverID");
                         String approverName = jsonObject1.getString("approverName");
 
                         binding.dangKyNghiEditTextNguoiDuyet.setText(approverName);
@@ -356,6 +365,83 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
                                 binding.dangKyNghiEditTextNgayNghi.setText(soNgayNghi);
                             }
+                        } catch (Exception e) {
+                            Log.d("TAG Message", e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
+    }
+
+
+    // Xu li Chuyen Duyet
+    private void xuLyChuyenDuyet() {
+        binding.dangKyNghiButtonChuyenDuyet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lay du lieu de Call API
+                String token = layToken();
+                String tuNgay = binding.dangKyNghiEditTextTuNgay.getText().toString();
+                String denNgay = binding.dangKyNghiEditTextDenNgay.getText().toString();
+                String lyDoNghi = binding.dangKyNghiEditTextLyDo.getText().toString();
+
+                // Khoi tao API
+                userService4 = RetrofitClient.getClient();
+
+                // Set du lieu vao DataHeader
+                List<ChuyenDuyetRequest.Param> params = new ArrayList<>();
+                ChuyenDuyetRequest.Param param = new ChuyenDuyetRequest.Param();
+                param.setLeaveTypeID(idLoaiNghi);
+                param.setFromDate(tuNgay);
+                param.setToDate(denNgay);
+                param.setIsFromTom("0");
+                param.setIsToTom("0");
+                param.setApprover(approverID);
+                param.setReplacePerson("");
+                param.setReason(lyDoNghi);
+                param.setStatus("1");
+
+                params.add(param);
+
+                // Khoi tao Request Model
+                ChuyenDuyetRequest model4 = new ChuyenDuyetRequest();
+                model4.setAppVersion("V33.PNJ.20200827.2");
+                model4.setDataHeader(params);
+                model4.setLangID("vn");
+                model4.setStoken(token);
+
+                userService4.chuyenDuyet(model4).enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        try {
+                            // Kiem tra du lieu khi call
+                            Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
+
+                            // Lay các trường trong Json tra ve
+                            String jsonResponse = response.body().toString();
+
+                            JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                            String code = jsonObject.getString("code");
+
+                            // Xu li xuat hien man hinh thong bao
+                            if (code.equalsIgnoreCase("0")) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                ThanhCongDialog editNameDialogFragment = ThanhCongDialog.newInstance("Some Title");
+                                editNameDialogFragment.show(fm, "fragment_edit_name");
+                            } else if (code.equalsIgnoreCase("2")) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                ThatBaiDialog editNameDialogFragment = ThatBaiDialog.newInstance("Some Title");
+                                editNameDialogFragment.show(fm, "fragment_edit_name");
+                            }
+
                         } catch (Exception e) {
                             Log.d("TAG Message", e.getMessage());
                         }
