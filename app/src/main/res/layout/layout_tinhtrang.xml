@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tinhTrang_linear_layoutTinhTrang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:orientation="horizontal">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tỉnhtrang_cardView_tinhtrang"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        app:cardCornerRadius="25dp">
+
+        <ImageView
+            android:id="@+id/tinhtrang_imageView_tinhtrang"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--    <ImageView-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        android:layout_marginLeft="20dp"-->
+    <!--        android:tint="@color/blue"-->
+    <!--        android:src="@drawable/icon_tinhtrang" />-->
+
+    <TextView
+        android:id="@+id/tinhtrang_textView_tenTinhTrang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Example"
+        android:textSize="20dp" />
+
+</LinearLayout>

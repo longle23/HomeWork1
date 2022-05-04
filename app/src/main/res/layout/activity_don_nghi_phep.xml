@@ -22,14 +22,14 @@
             app:layout_collapseMode="pin"
             app:popupTheme="@style/PopUpOverLay">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Đơn nghỉ phép cá nhân"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Đơn nghỉ phép cá nhân"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -37,6 +37,7 @@
 
 
     //////////
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -112,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:hint="Người phê duyệt">
+            android:hint="Tình trạng">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/donNghiPhep_editText_tinhTrang"
@@ -133,9 +134,27 @@
             android:backgroundTint="@color/blue"
             android:elevation="20dp"
             android:text="TÌM KIẾM"
+            android:drawableLeft="@drawable/ic_baseline_search_244"
             android:textColor="#FFFFFF" />
 
+        <TextView
+            android:id="@+id/donNghiPhep_textView_ketQua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:text="Kết quả" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/donNghiPhep_recyclerView_listDonNghi"
+            android:layout_width="360dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp" />
+
     </LinearLayout>
+
+    <!--    <include layout="@layout/bottom_sheet_dialog_tinhtrang" />-->
 
 
 </LinearLayout>

@@ -2,6 +2,8 @@ package fis.ihrp.longlh.homework1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
@@ -11,8 +13,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -25,10 +29,16 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fis.ihrp.longlh.homework1.adapter.EmployeeAdapter;
+import fis.ihrp.longlh.homework1.adapter.TinhTrangAdapter;
 import fis.ihrp.longlh.homework1.databinding.ActivityDangKyNghiBinding;
 import fis.ihrp.longlh.homework1.databinding.ActivityDonNghiPhepBinding;
+import fis.ihrp.longlh.homework1.model.Employee;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiResponse;
+import fis.ihrp.longlh.homework1.model.TinhTrangRequest;
+import fis.ihrp.longlh.homework1.model.TinhTrangResponse;
+import fis.ihrp.longlh.homework1.myinterface.TinhTrangOnclick;
 import fis.ihrp.longlh.homework1.service.RetrofitClient;
 import fis.ihrp.longlh.homework1.service.UserService;
 import okhttp3.RequestBody;
@@ -37,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DonNghiPhepActivity extends AppCompatActivity {
+public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangOnclick {
 
     // Khai bao bien binding
     private ActivityDonNghiPhepBinding binding;
@@ -56,6 +66,13 @@ public class DonNghiPhepActivity extends AppCompatActivity {
 
     // Khai bao bien idLoaiNghi
     String idLoaiNghi;
+
+    // Set Adapter Tinh Trang
+    private TinhTrangResponse tinhTrangResponse;
+    private ArrayList<TinhTrangResponse> listTinhTrang = new ArrayList<>();
+    private TinhTrangAdapter tinhTrangAdapter;
+
+    private BottomSheetDialog bottomSheetDialog;
 
 
     @Override
@@ -133,6 +150,15 @@ public class DonNghiPhepActivity extends AppCompatActivity {
                 new DatePickerDialog(DonNghiPhepActivity.this, date2, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        // Call API Tinh Trang
+        goiAPI_GetTinhTrang(layToken());
+
+        // Set up Adapter Tinh Trang
+        initBottomSheetDialog(listTinhTrang);
+
+        // Show Bottom Dialog
+        showBottomSheetDialog();
 
     }
 
@@ -233,4 +259,98 @@ public class DonNghiPhepActivity extends AppCompatActivity {
     }
 
 
+    // Ham Goi API lay Tinh Trang
+    // Load du lieu Tinh Trang vao View
+    private void goiAPI_GetTinhTrang(String token) {
+        // Khoi tao API
+        userService5 = RetrofitClient.getClient();
+
+        // Set du lieu vao DataHeader
+        List<TinhTrangRequest.Param> params = new ArrayList<>();
+        TinhTrangRequest.Param param = new TinhTrangRequest.Param();
+        param.setF("2");
+        params.add(param);
+
+        // Khoi tao Request Model
+        TinhTrangRequest model = new TinhTrangRequest();
+        model.setAppVersion("V33.PNJ.20200827.2");
+        model.setDataHeader(params);
+        model.setLangID("vn");
+        model.setStoken(token);
+
+        userService5.tinhTrang(model).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                // Test ket qua response tra ve du lieu la gi
+//                Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
+
+                try {
+                    // Lay các trường trong Json tra ve
+                    String jsonResponse = response.body().toString();
+
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                    JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
+                    Log.d("TAG TinhTrang", "onResponse: " + dataItemResponse);
+
+                    for (int i = 0; i < dataItemResponse.length(); i++) {
+                        JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
+
+                        tinhTrangResponse = new TinhTrangResponse();
+
+                        String item1 = jsonObject1.getString("item1");
+                        String item2 = jsonObject1.getString("item2");
+
+                        tinhTrangResponse.setItem1(item1);
+                        tinhTrangResponse.setItem2(item2);
+                        listTinhTrang.add(tinhTrangResponse);
+
+                    }
+                    initBottomSheetDialog(listTinhTrang);
+
+                } catch (Exception e) {
+                    Log.d("TAG Message", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initBottomSheetDialog(ArrayList<TinhTrangResponse> listTinhTrang) {
+        bottomSheetDialog = new BottomSheetDialog(DonNghiPhepActivity.this);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_tinhtrang);
+
+        RecyclerView bottom_recyclerView_tinhTrang = bottomSheetDialog.findViewById(R.id.bottom_recyclerView_tinhTrang);
+        tinhTrangAdapter = new TinhTrangAdapter(listTinhTrang, DonNghiPhepActivity.this, this);
+        bottom_recyclerView_tinhTrang.setAdapter(tinhTrangAdapter);
+        bottom_recyclerView_tinhTrang.setLayoutManager(new LinearLayoutManager(DonNghiPhepActivity.this));
+    }
+
+    // Show Bottom Sheet Dialog
+    private void showBottomSheetDialog() {
+        binding.donNghiPhepEditTextTinhTrang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialog.show();
+            }
+        });
+    }
+
+
+    @Override
+    public void OnItemSelected(String id, String name) {
+        Toast.makeText(this, id + " - " + name, Toast.LENGTH_SHORT).show();
+        //set EditText tình trạng
+        //lưu id vào 1 biến selectedTinhTrang
+        //hide bottomSheetDialog
+        binding.donNghiPhepEditTextTinhTrang.setText(name);
+
+        String idTinhtrang = id;
+
+        bottomSheetDialog.dismiss();
+    }
 }

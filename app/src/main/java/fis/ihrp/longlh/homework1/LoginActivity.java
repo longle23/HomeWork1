@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements  View.OnClickListener {
 
     // Khai bao bien binding
     private ActivityMainBinding binding;
@@ -109,18 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void xuLyThongTinDangNhap() {
-        binding.mainButtonDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = binding.mainEditTextTenDangNhap.getText().toString().trim();
-                String password = binding.mainEditTextMatKhau.getText().toString().trim();
-
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
-                    xuLyDangNhap(username, password);
-                }
-            }
-
-        });
+        binding.mainButtonDangNhap.setOnClickListener(this);
     }
 
     // Thực hiện đăng nhập vào hệ thống
@@ -199,4 +188,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        int viewID = view.getId();
+        switch (viewID){
+            case R.id.main_button_dangNhap:{
+                String username = binding.mainEditTextTenDangNhap.getText().toString().trim();
+                String password = binding.mainEditTextMatKhau.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+                    xuLyDangNhap(username, password);
+                }
+                break;
+            }
+
+        }
+
+    }
 }

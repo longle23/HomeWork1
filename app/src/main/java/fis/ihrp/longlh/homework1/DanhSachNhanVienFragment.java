@@ -47,7 +47,7 @@ public class DanhSachNhanVienFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Employee employee;
-    private ArrayList<Employee> listEmployee;
+    private ArrayList<Employee> listEmployee = new ArrayList<>();
     private EmployeeAdapter employeeAdapter;
 
     // Khai bao bien binding
@@ -61,7 +61,6 @@ public class DanhSachNhanVienFragment extends Fragment {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_danh_sach_nhan_vien);
 
-        listEmployee = new ArrayList<>();
     }
 
 
