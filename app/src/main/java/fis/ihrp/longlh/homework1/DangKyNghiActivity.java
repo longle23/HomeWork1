@@ -79,6 +79,7 @@ public class DangKyNghiActivity extends AppCompatActivity {
     // Khai bao bien idNguoiDuyet
     String approverID;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +97,13 @@ public class DangKyNghiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        binding.toolbarDKNghi.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Call API Loai Nghi
         goiAPI_GetLoaiNghi(layToken());

@@ -61,7 +61,6 @@ public class DanhSachNhanVienFragment extends Fragment {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_danh_sach_nhan_vien);
 
-
         listEmployee = new ArrayList<>();
     }
 
@@ -69,6 +68,7 @@ public class DanhSachNhanVienFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = FragmentDanhSachNhanVienBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 

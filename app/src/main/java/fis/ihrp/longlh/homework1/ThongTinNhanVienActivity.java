@@ -65,12 +65,13 @@ public class ThongTinNhanVienActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Setting thanh toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarThongTinNV2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+        binding.toolbarThongTinNV2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -94,7 +95,6 @@ public class ThongTinNhanVienActivity extends AppCompatActivity {
         funcionAdapter = new FuncionAdapter(listFuncion, this);
         binding.thongTinNhanVIenRecyclerViewDoiTuong.setAdapter(funcionAdapter);
         binding.thongTinNhanVIenRecyclerViewDoiTuong.setLayoutManager(new GridLayoutManager(this, 3));
-
     }
 
     // Ham tra ve Token de goi API

@@ -39,7 +39,7 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.navigation_donNghi:
-                        fragment = new DangKyFragment();
+                        fragment = new DanhSachFragment();
                         loadFragment(fragment);
                         return true;
 
