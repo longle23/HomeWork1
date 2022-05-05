@@ -4,4 +4,6 @@ HỆ THỐNG QUẢN TRỊ NHÂN SỰ
 
 Activity: Login, ListEmployee
 
-Call API
+Fragment: Tìm kiếm, Đăng ký, Đơn nghỉ
+
+Call API - Retrofit2
