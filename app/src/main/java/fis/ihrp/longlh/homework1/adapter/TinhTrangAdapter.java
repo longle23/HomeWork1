@@ -33,7 +33,7 @@ public class TinhTrangAdapter extends RecyclerView.Adapter<TinhTrangAdapter.View
 
     private ArrayList<TinhTrangResponse> listTinhTrang;
     private Context context;
-    TinhTrangOnclick callback;
+    private TinhTrangOnclick callback;
 
     public TinhTrangAdapter(ArrayList<TinhTrangResponse> listTinhTrang, Context context,TinhTrangOnclick callback) {
         this.listTinhTrang = listTinhTrang;
@@ -81,7 +81,7 @@ public class TinhTrangAdapter extends RecyclerView.Adapter<TinhTrangAdapter.View
         holder.tinhTrang_linear_layoutTinhTrang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.OnItemSelected(tinhTrangResponse.getItem1(),tinhTrangResponse.getItem2());
+                callback.OnItemSelected(tinhTrangResponse.getItem1(),tinhTrangResponse.getItem2(), "101");
             }
         });
 

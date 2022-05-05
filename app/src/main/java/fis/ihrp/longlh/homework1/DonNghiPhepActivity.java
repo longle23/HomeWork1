@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fis.ihrp.longlh.homework1.adapter.EmployeeAdapter;
+import fis.ihrp.longlh.homework1.adapter.LoaiNghiAdapter;
 import fis.ihrp.longlh.homework1.adapter.TinhTrangAdapter;
 import fis.ihrp.longlh.homework1.databinding.ActivityDangKyNghiBinding;
 import fis.ihrp.longlh.homework1.databinding.ActivityDonNghiPhepBinding;
@@ -55,11 +56,10 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
     // Khai bao bien Service
     private UserService userService5;
 
-    // ArrayList trong AutoCompleteTextView
-    private List<String> listLoaiNghi = new ArrayList<>();
-    private ArrayAdapter<String> adapterLoaiNghi;
-    // List de lay Id Loai Nghi
-    private List<LoaiNghiResponse> listLoaiNghi2 = new ArrayList<>();
+    // Set Adapter Loai Nghi
+    private LoaiNghiResponse loaiNghiResponse;
+    private ArrayList<LoaiNghiResponse> listLoaiNghi = new ArrayList<>();
+    private LoaiNghiAdapter loaiNghiAdapter;
 
     // Khai báo Calendar
     final Calendar myCalendar = Calendar.getInstance();
@@ -72,7 +72,9 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
     private ArrayList<TinhTrangResponse> listTinhTrang = new ArrayList<>();
     private TinhTrangAdapter tinhTrangAdapter;
 
-    private BottomSheetDialog bottomSheetDialog;
+    // BottomSheetDialog
+    private BottomSheetDialog bottomSheetDialogLoaiNghi;
+    private BottomSheetDialog bottomSheetDialogTinhTrang;
 
 
     @Override
@@ -101,19 +103,10 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
 
         // Call API Loai Nghi
         goiAPI_GetLoaiNghi(layToken());
-
-        // Set Adapter Loai Nghi
-        // Set 2 list, 1 list de show ten loai nghi, 1 de lay Id loai nghi
-        adapterLoaiNghi = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listLoaiNghi);
-        binding.donNghiPhepAutoCompleteLoaiNghi.setAdapter(adapterLoaiNghi);
-        binding.donNghiPhepAutoCompleteLoaiNghi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(DonNghiPhepActivity.this, "position" + i, Toast.LENGTH_SHORT).show();
-                idLoaiNghi = listLoaiNghi2.get(i).getId();
-//                Toast.makeText(DangKyNghiActivity.this, "Id " + idLoaiNghi, Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Set up Adapter Loai Nghi
+        initBottomSheetDialog1(listLoaiNghi);
+        // Show Bottom Dialog Loai Nghi
+        showBottomSheetDialog1();
 
         // Setup Calendar Tu Ngay
         DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
@@ -153,12 +146,10 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
 
         // Call API Tinh Trang
         goiAPI_GetTinhTrang(layToken());
-
         // Set up Adapter Tinh Trang
-        initBottomSheetDialog(listTinhTrang);
-
-        // Show Bottom Dialog
-        showBottomSheetDialog();
+        initBottomSheetDialog2(listTinhTrang);
+        // Show Bottom Dialog Tinh Trang
+        showBottomSheetDialog2();
 
     }
 
@@ -208,17 +199,17 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
                     for (int i = 0; i < dataItemResponse.length(); i++) {
                         JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
 
-                        LoaiNghiResponse loaiNghiResponse = new LoaiNghiResponse();
+                        loaiNghiResponse = new LoaiNghiResponse();
 
                         String id = jsonObject1.getString("id");
                         String nameEN = jsonObject1.getString("nameEN");
-                        listLoaiNghi.add(nameEN);
 
-                        ///// Lay data vao list thu 2
                         loaiNghiResponse.setId(id);
                         loaiNghiResponse.setNameEN(nameEN);
-                        listLoaiNghi2.add(loaiNghiResponse);
+                        listLoaiNghi.add(loaiNghiResponse);
                     }
+                    initBottomSheetDialog1(listLoaiNghi);
+
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());
                 }
@@ -304,9 +295,8 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
                         tinhTrangResponse.setItem1(item1);
                         tinhTrangResponse.setItem2(item2);
                         listTinhTrang.add(tinhTrangResponse);
-
                     }
-                    initBottomSheetDialog(listTinhTrang);
+                    initBottomSheetDialog2(listTinhTrang);
 
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());
@@ -320,37 +310,77 @@ public class DonNghiPhepActivity extends AppCompatActivity implements TinhTrangO
         });
     }
 
-    private void initBottomSheetDialog(ArrayList<TinhTrangResponse> listTinhTrang) {
-        bottomSheetDialog = new BottomSheetDialog(DonNghiPhepActivity.this);
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_tinhtrang);
+    // Setup Adapter Loai Nghi
+    private void initBottomSheetDialog1(ArrayList<LoaiNghiResponse> listLoaiNghi) {
+        bottomSheetDialogLoaiNghi = new BottomSheetDialog(DonNghiPhepActivity.this);
+        bottomSheetDialogLoaiNghi.setContentView(R.layout.bottom_sheet_dialog_loainghi);
 
-        RecyclerView bottom_recyclerView_tinhTrang = bottomSheetDialog.findViewById(R.id.bottom_recyclerView_tinhTrang);
+        RecyclerView bottom_recyclerView_loaiNghi = bottomSheetDialogLoaiNghi.findViewById(R.id.bottom_recyclerView_loaiNghi);
+        loaiNghiAdapter = new LoaiNghiAdapter(listLoaiNghi, DonNghiPhepActivity.this, this);
+        bottom_recyclerView_loaiNghi.setAdapter(loaiNghiAdapter);
+        bottom_recyclerView_loaiNghi.setLayoutManager(new LinearLayoutManager(DonNghiPhepActivity.this));
+    }
+
+    // Setup Adapter Tinh Trang
+    private void initBottomSheetDialog2(ArrayList<TinhTrangResponse> listTinhTrang) {
+        bottomSheetDialogTinhTrang = new BottomSheetDialog(DonNghiPhepActivity.this);
+        bottomSheetDialogTinhTrang.setContentView(R.layout.bottom_sheet_dialog_tinhtrang);
+
+        RecyclerView bottom_recyclerView_tinhTrang = bottomSheetDialogTinhTrang.findViewById(R.id.bottom_recyclerView_tinhTrang);
         tinhTrangAdapter = new TinhTrangAdapter(listTinhTrang, DonNghiPhepActivity.this, this);
         bottom_recyclerView_tinhTrang.setAdapter(tinhTrangAdapter);
         bottom_recyclerView_tinhTrang.setLayoutManager(new LinearLayoutManager(DonNghiPhepActivity.this));
     }
 
-    // Show Bottom Sheet Dialog
-    private void showBottomSheetDialog() {
+    // Show Bottom Sheet Dialog Loai Nghi
+    private void showBottomSheetDialog1() {
+        binding.donNghiPhepEditTextLoaiNghi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialogLoaiNghi.show();
+            }
+        });
+    }
+
+    // Show Bottom Sheet Dialog Tinh Trang
+    private void showBottomSheetDialog2() {
         binding.donNghiPhepEditTextTinhTrang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheetDialog.show();
+                bottomSheetDialogTinhTrang.show();
             }
         });
     }
 
 
     @Override
-    public void OnItemSelected(String id, String name) {
-        Toast.makeText(this, id + " - " + name, Toast.LENGTH_SHORT).show();
-        //set EditText tình trạng
-        //lưu id vào 1 biến selectedTinhTrang
-        //hide bottomSheetDialog
-        binding.donNghiPhepEditTextTinhTrang.setText(name);
+    public void OnItemSelected(String id, String name, String codeId) {
+        switch (codeId){
+            case "100":{
+//                Toast.makeText(this, id + name, Toast.LENGTH_SHORT).show();
+                binding.donNghiPhepEditTextLoaiNghi.setText(name);
 
-        String idTinhtrang = id;
+                String idLoaiNghi = id;
 
-        bottomSheetDialog.dismiss();
+                bottomSheetDialogLoaiNghi.dismiss();
+                break;
+            }
+
+            case "101":{
+//                Toast.makeText(this, id + " - " + name, Toast.LENGTH_SHORT).show();
+
+                //set EditText tình trạng
+                //lưu id vào 1 biến selectedTinhTrang
+                //hide bottomSheetDialog
+                binding.donNghiPhepEditTextTinhTrang.setText(name);
+
+                String idTinhtrang = id;
+
+                bottomSheetDialogTinhTrang.dismiss();
+                break;
+            }
+
+        }
     }
+
 }
