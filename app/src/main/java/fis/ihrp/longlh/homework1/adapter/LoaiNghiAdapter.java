@@ -51,7 +51,7 @@ public class LoaiNghiAdapter extends RecyclerView.Adapter<LoaiNghiAdapter.ViewHo
 
         holder.textViewLoaiNghi.setText(loaiNghiResponse.getNameEN());
 
-        // Sự kiện Click vào Item Tinh Trang
+        // Sự kiện Click vào Item Loai Nghi
         holder.loaiNghi_linear_layoutLoaiNghi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

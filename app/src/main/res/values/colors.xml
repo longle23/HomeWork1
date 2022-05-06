@@ -10,4 +10,12 @@
 
     <color name="blue">#0077EE</color>
 
+    <color name="tinhTrang_xam">#E3E3E3</color>
+    <color name="tinhTrang_xanhDuong">#0077EE</color>
+    <color name="tinhTrang_vang">#FFD13D</color>
+    <color name="tinhTrang_xanhLa">#06CF13</color>
+    <color name="tinhTrang_do">#FF3D3D</color>
+
+    <color name="cam">#FFAB3D</color>
+
 </resources>

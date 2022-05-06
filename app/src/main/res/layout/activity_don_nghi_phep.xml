@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DonNghiPhepActivity">
+    tools:context=".DanhSachDonNghiActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,7 +37,6 @@
 
 
     //////////
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +48,7 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:hint="Loại nghỉ">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -131,25 +130,27 @@
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/blue"
+            android:drawableLeft="@drawable/ic_baseline_search_244"
             android:elevation="20dp"
             android:text="TÌM KIẾM"
-            android:drawableLeft="@drawable/ic_baseline_search_244"
             android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/donNghiPhep_textView_ketQua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="10dp"
-            android:text="Kết quả" />
+            android:text="Kết quả"
+            android:visibility="invisible"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/donNghiPhep_recyclerView_listDonNghi"
-            android:layout_width="360dp"
+            android:layout_width="370dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
 

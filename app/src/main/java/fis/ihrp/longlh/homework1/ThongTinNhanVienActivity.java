@@ -70,6 +70,7 @@ public class ThongTinNhanVienActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
 
         binding.toolbarThongTinNV2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

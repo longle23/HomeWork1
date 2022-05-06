@@ -1,31 +1,21 @@
 package fis.ihrp.longlh.homework1.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-import fis.ihrp.longlh.homework1.DonNghiPhepActivity;
 import fis.ihrp.longlh.homework1.R;
-import fis.ihrp.longlh.homework1.ThongTinNhanVienActivity;
-import fis.ihrp.longlh.homework1.model.Employee;
 import fis.ihrp.longlh.homework1.model.TinhTrangResponse;
 import fis.ihrp.longlh.homework1.myinterface.TinhTrangOnclick;
 
@@ -62,18 +52,20 @@ public class TinhTrangAdapter extends RecyclerView.Adapter<TinhTrangAdapter.View
         // Set màu cho Icon Tinh Trang
         String item1 = tinhTrangResponse.getItem1();
         if (item1.equalsIgnoreCase("")) {
-            holder.cardViewTinhTrang.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+//            holder.cardViewTinhTrang.setBackgroundResource(R.color.tinhTrang_xam);
+//            holder.cardViewTinhTrang.setCardBackgroundColor(Color.parseColor("#E3E3E3"));
+            holder.cardViewTinhTrang.setCardBackgroundColor(ContextCompat.getColor(context,R.color.tinhTrang_xam));
         } else if (item1.equalsIgnoreCase("1")) {
-            holder.cardViewTinhTrang.setBackgroundTintList(ColorStateList.valueOf(Color.BLUE));
+            holder.cardViewTinhTrang.setCardBackgroundColor(ContextCompat.getColor(context,R.color.tinhTrang_xanhDuong));
             holder.imageViewTinhTrang.setImageResource(R.drawable.ic_baseline_add_24);
         } else if (item1.equalsIgnoreCase("2")) {
-            holder.cardViewTinhTrang.setBackgroundTintList(ColorStateList.valueOf(Color.YELLOW));
-            holder.imageViewTinhTrang.setImageResource(R.drawable.ic_baseline_near_me_24);
+            holder.cardViewTinhTrang.setCardBackgroundColor(ContextCompat.getColor(context,R.color.tinhTrang_vang));
+            holder.imageViewTinhTrang.setImageResource(R.drawable.ic_baseline_near_me_244);
         } else if (item1.equalsIgnoreCase("3")) {
-            holder.cardViewTinhTrang.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
+            holder.cardViewTinhTrang.setCardBackgroundColor(ContextCompat.getColor(context,R.color.tinhTrang_xanhLa));
             holder.imageViewTinhTrang.setImageResource(R.drawable.ic_baseline_check_244);
         } else if (item1.equalsIgnoreCase("4")) {
-            holder.cardViewTinhTrang.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+            holder.cardViewTinhTrang.setCardBackgroundColor(ContextCompat.getColor(context,R.color.tinhTrang_do));
             holder.imageViewTinhTrang.setImageResource(R.drawable.ic_baseline_close_24);
         }
 
@@ -84,6 +76,7 @@ public class TinhTrangAdapter extends RecyclerView.Adapter<TinhTrangAdapter.View
                 callback.OnItemSelected(tinhTrangResponse.getItem1(),tinhTrangResponse.getItem2(), "101");
             }
         });
+
 
     }
 

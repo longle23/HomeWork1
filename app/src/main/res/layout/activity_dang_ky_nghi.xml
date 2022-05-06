@@ -22,14 +22,15 @@
             app:layout_collapseMode="pin"
             app:popupTheme="@style/PopUpOverLay">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Đăng ký nghỉ"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/dangKyNghi_tv_tenToolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Đăng ký nghỉ"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -113,7 +114,9 @@
             android:backgroundTint="#FFFFFF"
             android:elevation="20dp"
             android:text="TÍNH PHÉP"
-            android:textColor="@color/blue" />
+            android:textColor="@color/blue"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dangKyNghi_textInput_nguoiDuyet"
@@ -177,6 +180,64 @@
             android:elevation="20dp"
             android:text="CHUYỂN DUYỆT"
             android:textColor="#FFFFFF" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dangKyNghi_textInput_tinhTrang"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:hint="Tình trạng"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dangKyNghi_editText_tinhTrang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:imeOptions="flagNoExtractUi" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/dangKyNghi_button_rutLaiDon"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/cam"
+            android:drawableLeft="@drawable/ic_baseline_file_download_24"
+            android:elevation="20dp"
+            android:text="RÚT LẠI ĐƠN"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/dangKyNghi_button_chuyenDon"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/cam"
+            android:drawableLeft="@drawable/ic_baseline_near_me_24"
+            android:elevation="20dp"
+            android:text="CHUYỂN ĐƠN"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/dangKyNghi_button_xoaDon"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/tinhTrang_do"
+            android:drawableLeft="@drawable/ic_baseline_close_24"
+            android:elevation="20dp"
+            android:text="XÓA ĐƠN"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
 
     </LinearLayout>
 

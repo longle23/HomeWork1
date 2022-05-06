@@ -36,6 +36,7 @@ public class DangKyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DangKyNghiActivity.class);
+                intent.putExtra("mode1",new String("taoMoi"));
                 startActivity(intent);
 
             }

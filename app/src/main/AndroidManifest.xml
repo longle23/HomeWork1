@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeWork1">
         <activity
-            android:name=".DonNghiPhepActivity"
+            android:name=".DanhSachDonNghiActivity"
             android:exported="false" />
         <activity
             android:name=".DangKyNghiActivity"

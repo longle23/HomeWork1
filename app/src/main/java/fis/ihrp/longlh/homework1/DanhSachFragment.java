@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fis.ihrp.longlh.homework1.databinding.FragmentDangKyBinding;
 import fis.ihrp.longlh.homework1.databinding.FragmentDanhSachBinding;
 
 
@@ -35,7 +34,7 @@ public class DanhSachFragment extends Fragment {
         binding.danhSachLinearNghiPhep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DonNghiPhepActivity.class);
+                Intent intent = new Intent(view.getContext(), DanhSachDonNghiActivity.class);
                 startActivity(intent);
 
             }

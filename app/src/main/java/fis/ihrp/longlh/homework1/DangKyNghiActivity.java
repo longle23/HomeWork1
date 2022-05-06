@@ -2,10 +2,13 @@ package fis.ihrp.longlh.homework1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +36,8 @@ import fis.ihrp.longlh.homework1.databinding.ActivityDangKyNghiBinding;
 import fis.ihrp.longlh.homework1.databinding.ActivityMainBinding;
 import fis.ihrp.longlh.homework1.dialog.ThanhCongDialog;
 import fis.ihrp.longlh.homework1.dialog.ThatBaiDialog;
+import fis.ihrp.longlh.homework1.model.ChiTietDonNghiRequest;
+import fis.ihrp.longlh.homework1.model.ChiTietDonNghiResponse;
 import fis.ihrp.longlh.homework1.model.ChuyenDuyetRequest;
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.Funcion;
@@ -79,6 +84,12 @@ public class DangKyNghiActivity extends AppCompatActivity {
     // Khai bao bien idNguoiDuyet
     String approverID;
 
+    // Lay id tu Intent DanhSachDonNghiActivity
+    String idDonNghi;
+    String statusID;
+
+    ChiTietDonNghiResponse chiTietDonNghiResponse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +108,7 @@ public class DangKyNghiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
 
         binding.toolbarDKNghi.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,14 +169,63 @@ public class DangKyNghiActivity extends AppCompatActivity {
             }
         });
 
-        // Call API Nguoi Kiem Duyet
-        goiAPI_NguoiKiemDuyet(layToken());
+        // Lay du lieu Intent gui tu DanhSachDonNghiActivity
+        idDonNghi = getIntent().getExtras().getString("idDonNghi");
+        statusID = getIntent().getExtras().getString("statusID");
+        String mode1 = getIntent().getExtras().getString("mode1");
+        String mode2 = getIntent().getExtras().getString("mode2");
 
-        // Set su kien Click Tinh Phep
-        xuLyTinhPhep();
+        /////
+        // Lay mode de show View hien thi
+        // Dùng so sanh equalsIgnoreCase phai xét "!= null"
+        if (mode1 != null && mode1.equalsIgnoreCase("taoMoi")) {
 
-        // Set su kien Click Chuyen Duyet
-        xuLyChuyenDuyet();
+            // Call API Nguoi Kiem Duyet
+            goiAPI_NguoiKiemDuyet(layToken());
+
+            // Set su kien Click Tinh Phep
+            xuLyTinhPhep();
+
+            // Set su kien Click Chuyen Duyet
+            xuLyChuyenDuyet();
+
+        }
+        // Dùng so sanh equalsIgnoreCase phai xét "!= null"
+        else if (mode2 != null && mode2.equalsIgnoreCase("chiTietDon")) {
+            binding.dangKyNghiButtonTinhPhep.setVisibility(View.GONE);
+            binding.dangKyNghiButtonChuyenDuyet.setVisibility(View.GONE);
+            binding.dangKyNghiTextInputTinhTrang.setVisibility(View.VISIBLE);
+
+            binding.dangKyNghiTvTenToolbar.setText("Chi tiết đơn nghỉ");
+
+            // Call API Chi Tiet Don Nghi
+            goiAPI_ChiTietDonNghi(layToken());
+
+            if (statusID.equalsIgnoreCase("1")) {
+                binding.dangKyNghiButtonChuyenDon.setVisibility(View.VISIBLE);
+                binding.dangKyNghiButtonXoaDon.setVisibility(View.VISIBLE);
+
+
+            } else if (statusID.equalsIgnoreCase("2")) {
+                binding.dangKyNghiButtonRutLaiDon.setVisibility(View.VISIBLE);
+
+                binding.dangKyNghiTextInputLoaiNghi.setEnabled(false);
+                binding.dangKyNghiEditTextTuNgay.setEnabled(false);
+                binding.dangKyNghiEditTextDenNgay.setEnabled(false);
+                binding.dangKyNghiEditTextLyDo.setEnabled(false);
+
+            } else if (statusID.equalsIgnoreCase("3")) {
+                binding.dangKyNghiTextInputLoaiNghi.setEnabled(false);
+                binding.dangKyNghiEditTextTuNgay.setEnabled(false);
+                binding.dangKyNghiEditTextDenNgay.setEnabled(false);
+                binding.dangKyNghiTextInputLyDo.setEnabled(false);
+
+            } else if (statusID.equalsIgnoreCase("4")) {
+
+            }
+
+        }
+
     }
 
     // Ham tra ve Token de goi API
@@ -388,7 +449,6 @@ public class DangKyNghiActivity extends AppCompatActivity {
         });
     }
 
-
     // Xu li Chuyen Duyet
     private void xuLyChuyenDuyet() {
         binding.dangKyNghiButtonChuyenDuyet.setOnClickListener(new View.OnClickListener() {
@@ -463,6 +523,101 @@ public class DangKyNghiActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    // Ham Goi API Chi Tiet Don Nghi
+    private void goiAPI_ChiTietDonNghi(String token) {
+        // Khoi tao API
+        userService4 = RetrofitClient.getClient();
+
+        // Set du lieu vao DataHeader
+        List<ChiTietDonNghiRequest.Param> params = new ArrayList<>();
+        ChiTietDonNghiRequest.Param param = new ChiTietDonNghiRequest.Param();
+        param.setID(idDonNghi);
+        params.add(param);
+
+        // Khoi tao Request Model
+        ChiTietDonNghiRequest model = new ChiTietDonNghiRequest();
+        model.setAppVersion("V31.POS.20190603.5");
+        model.setDataHeader(params);
+        model.setLangID("vn");
+        model.setStoken(token);
+
+        userService4.chiTietDonNghi(model).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                // Test ket qua response tra ve du lieu la gi
+                Log.d("TAG", "ChiTietDon Request: " + bodyToString(call.request().body()));
+
+                try {
+                    // Lay các trường trong Json tra ve
+                    String jsonResponse = response.body().toString();
+
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                    JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
+                    Log.d("TAG ChiTietDonNghi", "onResponse: " + dataItemResponse);
+
+                    for (int i = 0; i < dataItemResponse.length(); i++) {
+                        JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
+
+                        chiTietDonNghiResponse = new ChiTietDonNghiResponse();
+
+                        String leaveRecordID = jsonObject1.getString("leaveRecordID");
+                        String leaveName = jsonObject1.getString("leaveName");
+                        String fromDate = jsonObject1.getString("fromDate");
+                        String toDate = jsonObject1.getString("toDate");
+                        String approverName = jsonObject1.getString("approverName");
+                        String taken = jsonObject1.getString("taken");
+                        String reason = jsonObject1.getString("reason");
+                        String statusID = jsonObject1.getString("statusID");
+                        String statusName = jsonObject1.getString("statusName");
+
+                        // Set text len View
+                        binding.dangKyNghiAutoCompleteLoaiNghi.setText(leaveName);
+                        binding.dangKyNghiEditTextTuNgay.setText(fromDate);
+                        binding.dangKyNghiEditTextDenNgay.setText(toDate);
+                        binding.dangKyNghiEditTextNguoiDuyet.setText(approverName);
+                        binding.dangKyNghiEditTextNgayNghi.setText(taken);
+                        binding.dangKyNghiEditTextLyDo.setText(reason);
+                        binding.dangKyNghiEditTextTinhTrang.setText(statusName);
+
+                        // Set màu editText Tinh Trang
+                        if (statusID.equalsIgnoreCase("")) {
+                            binding.dangKyNghiEditTextTinhTrang.setTextColor(ContextCompat.getColor(DangKyNghiActivity.this, R.color.tinhTrang_xam));
+                            Drawable img1 = binding.dangKyNghiEditTextTinhTrang.getContext().getResources().getDrawable(R.drawable.ic_xam);
+                            binding.dangKyNghiEditTextTinhTrang.setCompoundDrawablesWithIntrinsicBounds(img1, null, null, null);
+                        } else if (statusID.equalsIgnoreCase("1")) {
+                            binding.dangKyNghiEditTextTinhTrang.setTextColor(ContextCompat.getColor(DangKyNghiActivity.this, R.color.tinhTrang_xanhDuong));
+                            Drawable img2 = binding.dangKyNghiEditTextTinhTrang.getContext().getResources().getDrawable(R.drawable.ic_xanhduong);
+                            binding.dangKyNghiEditTextTinhTrang.setCompoundDrawablesWithIntrinsicBounds(img2, null, null, null);
+                        } else if (statusID.equalsIgnoreCase("2")) {
+                            binding.dangKyNghiEditTextTinhTrang.setTextColor(ContextCompat.getColor(DangKyNghiActivity.this, R.color.tinhTrang_vang));
+                            Drawable img3 = binding.dangKyNghiEditTextTinhTrang.getContext().getResources().getDrawable(R.drawable.send);
+                            binding.dangKyNghiEditTextTinhTrang.setCompoundDrawablesWithIntrinsicBounds(img3, null, null, null);
+                        } else if (statusID.equalsIgnoreCase("3")) {
+                            binding.dangKyNghiEditTextTinhTrang.setTextColor(ContextCompat.getColor(DangKyNghiActivity.this, R.color.tinhTrang_xanhLa));
+                            Drawable img4 = binding.dangKyNghiEditTextTinhTrang.getContext().getResources().getDrawable(R.drawable.ic_xanhla);
+                            binding.dangKyNghiEditTextTinhTrang.setCompoundDrawablesWithIntrinsicBounds(img4, null, null, null);
+                        } else if (statusID.equalsIgnoreCase("4")) {
+                            binding.dangKyNghiEditTextTinhTrang.setTextColor(ContextCompat.getColor(DangKyNghiActivity.this, R.color.tinhTrang_do));
+                            Drawable img5 = binding.dangKyNghiEditTextTinhTrang.getContext().getResources().getDrawable(R.drawable.remove);
+                            binding.dangKyNghiEditTextTinhTrang.setCompoundDrawablesWithIntrinsicBounds(img5, null, null, null);
+                        }
+
+                    }
+
+                } catch (Exception e) {
+                    Log.d("TAG Message", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+
     }
 
 
