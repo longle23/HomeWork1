@@ -1,14 +1,11 @@
 package fis.ihrp.longlh.homework1.model;
 
-//import javax.annotation.Generated;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-
-public class LoaiNghiRequest {
+public class XoaDonRequest {
 
     @SerializedName("AppVersion")
     @Expose
@@ -58,14 +55,14 @@ public class LoaiNghiRequest {
         this.stoken = stoken;
     }
 
-    public LoaiNghiRequest(String appVersion, List<Param> dataHeader, String langID, String stoken) {
+    public XoaDonRequest(String appVersion, List<Param> dataHeader, String langID, String stoken) {
         this.appVersion = appVersion;
         this.dataHeader = dataHeader;
         this.langID = langID;
         this.stoken = stoken;
     }
 
-    public LoaiNghiRequest() {
+    public XoaDonRequest() {
 
     }
 

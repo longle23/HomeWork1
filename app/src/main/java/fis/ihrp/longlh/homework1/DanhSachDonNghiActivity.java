@@ -173,7 +173,10 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
         donNghiDaTaoAdapter = new DonNghiDaTaoAdapter(listDonNghi, DanhSachDonNghiActivity.this, this);
         binding.donNghiPhepRecyclerViewListDonNghi.setAdapter(donNghiDaTaoAdapter);
         binding.donNghiPhepRecyclerViewListDonNghi.setLayoutManager(new LinearLayoutManager(this));
+
+        donNghiDaTaoAdapter.notifyDataSetChanged();
     }
+
 
     // Ham tra ve Token de goi API
     private String layToken() {

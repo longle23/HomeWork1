@@ -37,208 +37,214 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dangKyNghi_textInput_loaiNghi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:hint="Loại nghỉ">
-
-            <AutoCompleteTextView
-                android:id="@+id/dangKyNghi_autoComplete_loaiNghi"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#FFFFFF"
-                android:dropDownHeight="200dp"
-                android:inputType="none"
-                android:singleLine="true"
-                tools:text="Nghỉ phép" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dangKyNghi_textInput_tuNgay"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="160dp"
+                android:id="@+id/dangKyNghi_textInput_loaiNghi"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="Loại nghỉ">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dangKyNghi_autoComplete_loaiNghi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#FFFFFF"
+                    android:dropDownHeight="200dp"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    tools:text="Nghỉ phép" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dangKyNghi_textInput_tuNgay"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dangKyNghi_editText_tuNgay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="Từ ngày"
+                        android:imeOptions="flagNoExtractUi" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dangKyNghi_textInput_denNgay"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dangKyNghi_editText_denNgay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="Đến ngày"
+                        android:imeOptions="flagNoExtractUi" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/dangKyNghi_button_tinhPhep"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#FFFFFF"
+                android:elevation="20dp"
+                android:text="TÍNH PHÉP"
+                android:textColor="@color/blue"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dangKyNghi_textInput_nguoiDuyet"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="Người phê duyệt">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dangKyNghi_editText_tuNgay"
+                    android:id="@+id/dangKyNghi_editText_nguoiDuyet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:focusable="false"
-                    android:hint="Từ ngày"
                     android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dangKyNghi_textInput_denNgay"
+                android:id="@+id/dangKyNghi_textInput_ngayNghi"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="160dp"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp">
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="Số ngày nghỉ">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dangKyNghi_editText_denNgay"
+                    android:id="@+id/dangKyNghi_editText_ngayNghi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:focusable="false"
-                    android:hint="Đến ngày"
                     android:imeOptions="flagNoExtractUi" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dangKyNghi_textInput_lyDo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="Lý do nghỉ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dangKyNghi_editText_lyDo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="flagNoExtractUi" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/dangKyNghi_button_chuyenDuyet"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/blue"
+                android:elevation="20dp"
+                android:text="CHUYỂN DUYỆT"
+                android:textColor="#FFFFFF" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dangKyNghi_textInput_tinhTrang"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="Tình trạng"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dangKyNghi_editText_tinhTrang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:imeOptions="flagNoExtractUi" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/dangKyNghi_button_rutLaiDon"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/cam"
+                android:drawableLeft="@drawable/ic_baseline_file_download_24"
+                android:elevation="20dp"
+                android:text="RÚT LẠI ĐƠN"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/dangKyNghi_button_chuyenDuyet2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/tinhTrang_xanhDuong"
+                android:drawableLeft="@drawable/ic_baseline_near_me_24"
+                android:elevation="20dp"
+                android:text="CHUYỂN DUYỆT"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/dangKyNghi_button_xoaDon"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/tinhTrang_do"
+                android:drawableLeft="@drawable/ic_baseline_close_24"
+                android:elevation="20dp"
+                android:text="XÓA ĐƠN"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/dangKyNghi_button_tinhPhep"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#FFFFFF"
-            android:elevation="20dp"
-            android:text="TÍNH PHÉP"
-            android:textColor="@color/blue"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dangKyNghi_textInput_nguoiDuyet"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="Người phê duyệt">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dangKyNghi_editText_nguoiDuyet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:imeOptions="flagNoExtractUi" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dangKyNghi_textInput_ngayNghi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="Số ngày nghỉ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dangKyNghi_editText_ngayNghi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:imeOptions="flagNoExtractUi" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dangKyNghi_textInput_lyDo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="Lý do nghỉ">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dangKyNghi_editText_lyDo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/dangKyNghi_button_chuyenDuyet"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/blue"
-            android:elevation="20dp"
-            android:text="CHUYỂN DUYỆT"
-            android:textColor="#FFFFFF" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dangKyNghi_textInput_tinhTrang"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="Tình trạng"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dangKyNghi_editText_tinhTrang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:imeOptions="flagNoExtractUi" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/dangKyNghi_button_rutLaiDon"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/cam"
-            android:drawableLeft="@drawable/ic_baseline_file_download_24"
-            android:elevation="20dp"
-            android:text="RÚT LẠI ĐƠN"
-            android:textColor="#FFFFFF"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/dangKyNghi_button_chuyenDon"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/cam"
-            android:drawableLeft="@drawable/ic_baseline_near_me_24"
-            android:elevation="20dp"
-            android:text="CHUYỂN ĐƠN"
-            android:textColor="#FFFFFF"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/dangKyNghi_button_xoaDon"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/tinhTrang_do"
-            android:drawableLeft="@drawable/ic_baseline_close_24"
-            android:elevation="20dp"
-            android:text="XÓA ĐƠN"
-            android:textColor="#FFFFFF"
-            android:visibility="gone" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

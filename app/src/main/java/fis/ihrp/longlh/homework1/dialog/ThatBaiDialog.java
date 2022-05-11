@@ -46,7 +46,7 @@ public class ThatBaiDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        if(window == null) return;
+        if (window == null) return;
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = 1370;
         window.setAttributes(params);

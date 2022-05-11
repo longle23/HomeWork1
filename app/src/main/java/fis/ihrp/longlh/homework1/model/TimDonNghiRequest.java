@@ -125,6 +125,7 @@ public class TimDonNghiRequest {
         public void setTop(String top) {
             Top = top;
         }
+
     }
 
 

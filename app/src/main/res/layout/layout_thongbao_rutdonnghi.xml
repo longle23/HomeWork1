@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:text="Chuyển duyệt đơn thành công"
+            android:text="Đơn đăng ký đã được rút lại"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/thanhCong_button_ok"
+            android:id="@+id/rutDon_button_ok"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

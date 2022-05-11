@@ -111,7 +111,6 @@ public class DonNghiDaTaoAdapter extends RecyclerView.Adapter<DonNghiDaTaoAdapte
             donNghiTao_tv_soNgayNghi = donNghiDaTaoView.findViewById(R.id.donNghiTao_tv_soNgayNghi);
             donNghiTao_tv_nguoiDuyet = donNghiDaTaoView.findViewById(R.id.donNghiTao_tv_nguoiDuyet);
 
-
         }
     }
 

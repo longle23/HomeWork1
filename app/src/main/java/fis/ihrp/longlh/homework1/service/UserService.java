@@ -2,6 +2,7 @@ package fis.ihrp.longlh.homework1.service;
 
 import com.google.gson.JsonObject;
 
+import fis.ihrp.longlh.homework1.model.CapNhatDonRequest;
 import fis.ihrp.longlh.homework1.model.ChiTietDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.ChuyenDuyetRequest;
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
@@ -9,9 +10,11 @@ import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoginRequest;
 import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetRequest;
+import fis.ihrp.longlh.homework1.model.RutDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.TimDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.TinhPhepRequest;
 import fis.ihrp.longlh.homework1.model.TinhTrangRequest;
+import fis.ihrp.longlh.homework1.model.XoaDonRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -55,5 +58,15 @@ public interface UserService {
 
     @POST("api/v1/workflow1/view/application")
     Call<JsonObject> chiTietDonNghi(@Body ChiTietDonNghiRequest chiTietDonNghiRequest);
+
+    @POST("api/v1/workflow1/requester/update")
+    Call<JsonObject> rutDonNghi(@Body RutDonNghiRequest rutDonNghiRequest);
+
+    @POST("api/v1/workflow1/requester/update")
+    Call<JsonObject> capNhatDon(@Body CapNhatDonRequest capNhatDonRequest);
+
+    @POST("api/v1/workflow1/requester/delete")
+    Call<JsonObject> xoaDon(@Body XoaDonRequest xoaDonRequest);
+
 
 }

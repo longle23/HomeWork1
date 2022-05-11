@@ -4,7 +4,7 @@
     android:id="@+id/loaiNghi_linear_layoutLoaiNghi"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="10dp"
     android:orientation="horizontal">
 
 
@@ -12,10 +12,11 @@
         android:id="@+id/loaiNghi_textView_loaiNghi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:text="Example"
-        android:textSize="17dp   " />
+        android:textSize="17dp" />
 
 </LinearLayout>
