@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.JsonObject;
 
@@ -90,11 +93,15 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
 
     private TimDonNghiResponse timDonNghiResponse;
 
+    // Shimmer List Don Nghi
+    private ShimmerFrameLayout shimmerFrameLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_don_nghi_phep);
+
 
         // Goi ham inflate
         binding = ActivityDonNghiPhepBinding.inflate(getLayoutInflater());
@@ -175,8 +182,20 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
         binding.donNghiPhepRecyclerViewListDonNghi.setLayoutManager(new LinearLayoutManager(this));
 
         donNghiDaTaoAdapter.notifyDataSetChanged();
+
+        // Khai bao Shimmer
+        shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
     }
 
+    // Set Refesh List Don Nghi
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        listDonNghi.clear();
+        binding.donNghiPhepTextViewKetQua.setVisibility(View.GONE);
+        donNghiDaTaoAdapter.notifyDataSetChanged();
+    }
 
     // Ham tra ve Token de goi API
     private String layToken() {
@@ -383,6 +402,13 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
         binding.donNghiPhepButtonTimKiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Set Shimmer
+                String chonloainghi = binding.donNghiPhepEditTextLoaiNghi.getText().toString();
+                String chontinhtrang = binding.donNghiPhepEditTextTinhTrang.getText().toString();
+                if (!chonloainghi.equalsIgnoreCase("") && !chontinhtrang.equalsIgnoreCase("")) {
+                    shimmerFrameLayout.setVisibility(View.VISIBLE);
+                    shimmerFrameLayout.startShimmerAnimation();
+                }
 
                 // Lay du lieu de Call API
                 String tuNgay = binding.donNghiPhepEditTextTuNgay.getText().toString();
@@ -411,6 +437,7 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
                 userService5.timKiemDon(model).enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
                         try {
                             // Kiem tra du lieu khi call
                             Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
@@ -446,12 +473,25 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
                                 timDonNghiResponse.setTaken(taken);
                                 timDonNghiResponse.setNguoiPheDuyet(nguoiPheDuyet);
                                 timDonNghiResponse.setLeaveRecordID(leaveRecordID);
+
                                 listDonNghi.add(timDonNghiResponse);
                             }
                             donNghiDaTaoAdapter.notifyDataSetChanged();
 
-                            binding.donNghiPhepTextViewKetQua.setVisibility(View.VISIBLE);
-                            binding.donNghiPhepTextViewKetQua.setText(listDonNghi.size() + " Kết quả");
+                            // Set Time Shimmer Ket Thuc
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Do something after 2s
+                                    shimmerFrameLayout.stopShimmerAnimation();
+                                    shimmerFrameLayout.setVisibility(View.GONE);
+
+                                    // Set Text ket qua Don Nghi
+                                    binding.donNghiPhepTextViewKetQua.setVisibility(View.VISIBLE);
+                                    binding.donNghiPhepTextViewKetQua.setText(listDonNghi.size() + " Kết quả");
+                                }
+                            }, 1200);
 
                         } catch (Exception e) {
                             Log.d("TAG Message", e.getMessage());

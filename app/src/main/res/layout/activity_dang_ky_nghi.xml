@@ -44,26 +44,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dangKyNghi_textInput_loaiNghi"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:hint="Loại nghỉ">
 
-                <AutoCompleteTextView
-                    android:id="@+id/dangKyNghi_autoComplete_loaiNghi"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dangKyNghi_editText_loaiNghi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="#FFFFFF"
-                    android:dropDownHeight="200dp"
-                    android:inputType="none"
-                    android:singleLine="true"
-                    tools:text="Nghỉ phép" />
+                    android:editable="false"
+                    android:focusable="false"
+                    android:imeOptions="flagNoExtractUi" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -235,7 +236,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:backgroundTint="@color/tinhTrang_do"
                 android:drawableLeft="@drawable/ic_baseline_close_24"
                 android:elevation="20dp"
@@ -246,5 +247,6 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 </LinearLayout>

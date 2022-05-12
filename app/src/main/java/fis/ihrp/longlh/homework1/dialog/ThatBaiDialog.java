@@ -1,5 +1,7 @@
 package fis.ihrp.longlh.homework1.dialog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import fis.ihrp.longlh.homework1.DanhSachDonNghiActivity;
 import fis.ihrp.longlh.homework1.R;
 
 public class ThatBaiDialog extends DialogFragment {

@@ -11,9 +11,9 @@ public class XoaDonRequest {
     @Expose
     private String appVersion;
 
-    @SerializedName("DataHeader")
+    @SerializedName("DataItem")
     @Expose
-    private List<Param> dataHeader = null;
+    private List<Param> dataItem = null;
 
     @SerializedName("LangID")
     @Expose
@@ -31,12 +31,12 @@ public class XoaDonRequest {
         this.appVersion = appVersion;
     }
 
-    public List<Param> getDataHeader() {
-        return dataHeader;
+    public List<Param> getDataItem() {
+        return dataItem;
     }
 
-    public void setDataHeader(List<Param> dataHeader) {
-        this.dataHeader = dataHeader;
+    public void setDataItem(List<Param> dataItem) {
+        this.dataItem = dataItem;
     }
 
     public String getLangID() {
@@ -55,9 +55,9 @@ public class XoaDonRequest {
         this.stoken = stoken;
     }
 
-    public XoaDonRequest(String appVersion, List<Param> dataHeader, String langID, String stoken) {
+    public XoaDonRequest(String appVersion, List<Param> dataItem, String langID, String stoken) {
         this.appVersion = appVersion;
-        this.dataHeader = dataHeader;
+        this.dataItem = dataItem;
         this.langID = langID;
         this.stoken = stoken;
     }
@@ -67,23 +67,25 @@ public class XoaDonRequest {
     }
 
     public static class Param {
-        private String F;
+        private String ID;
 
-        public String getF() {
-            return F;
+        public String getID() {
+            return ID;
         }
 
-        public void setF(String f) {
-            F = f;
+        public void setID(String ID) {
+            this.ID = ID;
         }
 
-        public Param() {
+        public Param(String ID) {
+            this.ID = ID;
+        }
+
+        public Param(){
 
         }
 
-        public Param(String f) {
-            F = f;
-        }
     }
+
 
 }

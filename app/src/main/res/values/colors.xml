@@ -18,4 +18,6 @@
 
     <color name="cam">#FFAB3D</color>
 
+    <color name="colorGrey">#dddddd</color>
+
 </resources>
