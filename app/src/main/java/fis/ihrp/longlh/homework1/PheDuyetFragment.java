@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fis.ihrp.longlh.homework1.databinding.FragmentDanhSachBinding;
+import fis.ihrp.longlh.homework1.databinding.FragmentPheDuyetBinding;
 
 
-public class DanhSachFragment extends Fragment {
+public class PheDuyetFragment extends Fragment {
 
-    private FragmentDanhSachBinding binding;
+    private FragmentPheDuyetBinding binding;
     private Context context;
 
     @Override
@@ -26,14 +27,16 @@ public class DanhSachFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_phe_duyet, container, false);
 
-        binding = FragmentDanhSachBinding.inflate(inflater, container, false);
+        binding = FragmentPheDuyetBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.danhSachLinearNghiPhep.setOnClickListener(new View.OnClickListener() {
+        binding.pheDuyetLinearDonNghi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DanhSachDonNghiActivity.class);
+                Intent intent = new Intent(view.getContext(), PheDuyetDonActivity.class);
                 startActivity(intent);
             }
         });

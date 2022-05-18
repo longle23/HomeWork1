@@ -26,6 +26,7 @@
         <entry key="..\:/HomeWork1 clone/app/src/main/res/layout/layout_thatbai.xml" value="0.20364583333333333" />
         <entry key="..\:/HomeWork1 clone/app/src/main/res/layout/layoutnhanvienlist.xml" value="0.15885416666666666" />
         <entry key="..\:/HomeWork1 clone/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/dialog_rounded_bg.xml" value="0.22685185185185186" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/ic_back.xml" value="0.24010416666666667" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.21666666666666667" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.24010416666666667" />
@@ -48,27 +49,54 @@
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/ic_xam.xml" value="0.21666666666666667" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/ic_xanhduong.xml" value="0.21666666666666667" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/drawable/icon_tinhtrang.xml" value="0.12" />
-        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_dang_ky_nghi.xml" value="0.16" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_dang_ky_nghi.xml" value="0.1" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_danh_sach_nhan_vien.xml" value="0.15833333333333333" />
-        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_don_nghi_phep.xml" value="0.264" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_don_nghi_phep.xml" value="0.1" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_main.xml" value="0.21979166666666666" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_phe_duyet_don.xml" value="0.536" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/activity_thong_tin_nhan_vien.xml" value="0.11231884057971014" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/bottom_sheet_dialog_loainghi.xml" value="0.16799999999999998" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/bottom_sheet_dialog_tinhtrang.xml" value="0.264" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/dialog_rounded_bg.xml" value="0.15833333333333333" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/fragment_dang_ky.xml" value="0.21979166666666666" />
-        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/fragment_danh_sach.xml" value="0.21979166666666666" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/fragment_danh_sach.xml" value="0.536" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/fragment_danh_sach_nhan_vien.xml" value="0.21979166666666666" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/fragment_phe_duyet.xml" value="0.536" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/icon_tinhtrang.xml" value="0.21979166666666666" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/icon_tinhtrang2.xml" value="0.20260416666666667" />
-        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_donnghidatao.xml" value="0.6" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_donchoduyet.xml" value="0.4" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_donnghidatao.xml" value="0.5489864864864865" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_duyetfail.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_duyetsuccess.xml" value="0.1" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_loainghi.xml" value="0.1" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_nhan_vien_he_thong.xml" value="0.12708333333333333" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_shimmer_donchoduyet.xml" value="0.1403985507246377" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_shimmer_donnghi.xml" value="0.264" />
-        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_thanhcong.xml" value="0.4" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_thanhcong.xml" value="0.1" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_thatbai.xml" value="0.12708333333333333" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_thongbao_rutdonnghi.xml" value="0.2" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_thongbao_thanhcong.xml" value="0.153125" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layout_tinhtrang.xml" value="1.0" />
         <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/layout/layoutnhanvienlist.xml" value="0.2" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.153125" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone2/app/src/main/res/xml/dialog_rounded_bg.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/activity_dang_ky_nghi.xml" value="0.264" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/activity_don_nghi_phep.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/activity_main.xml" value="0.22239583333333332" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/activity_phe_duyet_don.xml" value="0.12239583333333333" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/fragment_danh_sach_nhan_vien.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_donchoduyet.xml" value="0.264" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_donnghidatao.xml" value="0.2" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_duyetfail.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_duyetsuccess.xml" value="0.2421875" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_shimmer_donchoduyet.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_shimmer_donnghi.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_thanhcong.xml" value="0.1" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_tinhtrang.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/layout_tuchoiduyet_dialog.xml" value="0.264" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/layout/swipelayout_donpheduyet.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2234375" />
+        <entry key="..\:/WorkspaceFIS/HomeWork1 clone3/app/src/main/res/xml/dialog_rounded_bg.xml" value="0.2234375" />
         <entry key="..\:/WorkspaceFIS/HomeWork1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2625" />
         <entry key="..\:/WorkspaceFIS/HomeWork1/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2625" />
         <entry key="..\:/WorkspaceFIS/HomeWork1/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.2625" />

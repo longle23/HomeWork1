@@ -14,6 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeWork1">
         <activity
+            android:name=".PheDuyetDonActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/dialog_rounded_bg" />
+
+        <activity
             android:name=".DanhSachDonNghiActivity"
             android:exported="false" />
         <activity

@@ -1,7 +1,5 @@
 package fis.ihrp.longlh.homework1.dialog;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,32 +9,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import fis.ihrp.longlh.homework1.R;
 
-public class ThanhCongDialog extends DialogFragment {
+public class DuyetDonDialog extends DialogFragment {
 
     //Được dùng khi khởi tạo dialog mục đích nhận giá trị
-    public static ThanhCongDialog newInstance(String data) {
-        ThanhCongDialog thanhCongDialog = new ThanhCongDialog();
+    public static DuyetDonDialog newInstance(String data) {
+        DuyetDonDialog duyetDonDialog = new DuyetDonDialog();
         Bundle args = new Bundle();
         args.putString("data", data);
-        thanhCongDialog.setArguments(args);
-        return thanhCongDialog;
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
+        duyetDonDialog.setArguments(args);
+        return duyetDonDialog;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.layout_thongbao_thanhcong, container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.layout_duyetsuccess, container);
 
         View view = inflater.inflate(R.layout.layout_thanhcong, container, false);
         // Set transparent background and no title
@@ -56,7 +48,6 @@ public class ThanhCongDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
-                ((Activity) getContext()).finish();
             }
         });
     }
@@ -71,7 +62,7 @@ public class ThanhCongDialog extends DialogFragment {
 //        params.width = 1370;
 //        window.setAttributes(params);
 
-        getDialog().getWindow().setLayout(1200, 760);
+        getDialog().getWindow().setLayout(1200, 740);
     }
 
 

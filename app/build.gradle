@@ -79,5 +79,8 @@ dependencies {
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
+    // SwipeLayout
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
 
 }

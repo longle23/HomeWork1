@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -174,7 +175,12 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
         showBottomSheetDialog2();
 
         // Call API Tim Kiem Don
-        goiAPI_TimKiemDon(layToken());
+        binding.donNghiPhepButtonTimKiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goiAPI_TimKiemDon(layToken());
+            }
+        });
 
         // Set up Adapter Don Nghi Da Tao
         donNghiDaTaoAdapter = new DonNghiDaTaoAdapter(listDonNghi, DanhSachDonNghiActivity.this, this);
@@ -195,6 +201,8 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
         listDonNghi.clear();
         binding.donNghiPhepTextViewKetQua.setVisibility(View.GONE);
         donNghiDaTaoAdapter.notifyDataSetChanged();
+
+        goiAPI_TimKiemDon(layToken());
     }
 
     // Ham tra ve Token de goi API
@@ -399,110 +407,107 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
     // Ham Goi API Tim Kiem Don Nghi
     // Load du lieu Don Nghi Da Tao vao View
     private void goiAPI_TimKiemDon(String token) {
-        binding.donNghiPhepButtonTimKiem.setOnClickListener(new View.OnClickListener() {
+        binding.donNghiPhepTextViewKetQua.setVisibility(View.GONE);
+
+        // Set Shimmer
+        String chonloainghi = binding.donNghiPhepEditTextLoaiNghi.getText().toString();
+        String chontinhtrang = binding.donNghiPhepEditTextTinhTrang.getText().toString();
+        if (!chonloainghi.equalsIgnoreCase("") && !chontinhtrang.equalsIgnoreCase("")) {
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
+            shimmerFrameLayout.startShimmerAnimation();
+        }
+
+        // Lay du lieu de Call API
+        String tuNgay = binding.donNghiPhepEditTextTuNgay.getText().toString();
+        String denNgay = binding.donNghiPhepEditTextDenNgay.getText().toString();
+
+        //Khoi tao API
+        userService5 = RetrofitClient.getClient();
+
+        // Set du lieu vao Adapter
+        List<TimDonNghiRequest.Param> params = new ArrayList<>();
+        TimDonNghiRequest.Param param = new TimDonNghiRequest.Param();
+        param.setFromDate(tuNgay);
+        param.setLeaveTypeID(idLoaiNghi);
+        param.setStatus(idTinhTrang);
+        param.setToDate(denNgay);
+        param.setTop("");
+
+        params.add(param);
+
+        // Khoi tao Request Model
+        TimDonNghiRequest model = new TimDonNghiRequest();
+        model.setAppVersion("V33.PNJ.20200827.2");
+        model.setDataHeader(params);
+        model.setLangID("vn");
+        model.setStoken(token);
+
+        userService5.timKiemDon(model).enqueue(new Callback<JsonObject>() {
             @Override
-            public void onClick(View view) {
-                // Set Shimmer
-                String chonloainghi = binding.donNghiPhepEditTextLoaiNghi.getText().toString();
-                String chontinhtrang = binding.donNghiPhepEditTextTinhTrang.getText().toString();
-                if (!chonloainghi.equalsIgnoreCase("") && !chontinhtrang.equalsIgnoreCase("")) {
-                    shimmerFrameLayout.setVisibility(View.VISIBLE);
-                    shimmerFrameLayout.startShimmerAnimation();
-                }
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                // Lay du lieu de Call API
-                String tuNgay = binding.donNghiPhepEditTextTuNgay.getText().toString();
-                String denNgay = binding.donNghiPhepEditTextDenNgay.getText().toString();
+                try {
+                    // Kiem tra du lieu khi call
+                    Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
 
-                //Khoi tao API
-                userService5 = RetrofitClient.getClient();
+                    // Lay các trường trong Json tra ve
+                    String jsonResponse = response.body().toString();
 
-                // Set du lieu vao Adapter
-                List<TimDonNghiRequest.Param> params = new ArrayList<>();
-                TimDonNghiRequest.Param param = new TimDonNghiRequest.Param();
-                param.setFromDate(tuNgay);
-                param.setLeaveTypeID(idLoaiNghi);
-                param.setStatus(idTinhTrang);
-                param.setToDate(denNgay);
-                param.setTop("");
-                params.add(param);
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
 
-                // Khoi tao Request Model
-                TimDonNghiRequest model = new TimDonNghiRequest();
-                model.setAppVersion("V33.PNJ.20200827.2");
-                model.setDataHeader(params);
-                model.setLangID("vn");
-                model.setStoken(token);
+                    JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
 
-                userService5.timKiemDon(model).enqueue(new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.d("TAG", "Don Da Tao: " + dataItemResponse);
 
-                        try {
-                            // Kiem tra du lieu khi call
-                            Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
+                    listDonNghi.clear();
 
-                            // Lay các trường trong Json tra ve
-                            String jsonResponse = response.body().toString();
+                    for (int i = 0; i < dataItemResponse.length(); i++) {
+                        JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
 
-                            JSONObject jsonObject = new JSONObject(jsonResponse);
+                        timDonNghiResponse = new TimDonNghiResponse();
 
-                            JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
+                        statusID = jsonObject1.getString("statusID");
+                        String status = jsonObject1.getString("status");
+                        String leaveName = jsonObject1.getString("leaveName");
+                        String duration = jsonObject1.getString("duration");
+                        String taken = jsonObject1.getString("taken");
+                        String nguoiPheDuyet = jsonObject1.getString("nguoiPheDuyet");
+                        leaveRecordID = jsonObject1.getString("leaveRecordID");
 
-                            Log.d("TAG", "Don Da Tao: " + dataItemResponse);
+                        timDonNghiResponse.setStatusID(statusID);
+                        timDonNghiResponse.setStatus(status);
+                        timDonNghiResponse.setLeaveName(leaveName);
+                        timDonNghiResponse.setDuration(duration);
+                        timDonNghiResponse.setTaken(taken);
+                        timDonNghiResponse.setNguoiPheDuyet(nguoiPheDuyet);
+                        timDonNghiResponse.setLeaveRecordID(leaveRecordID);
 
-                            listDonNghi.clear();
+                        listDonNghi.add(timDonNghiResponse);
+                    }
+                    donNghiDaTaoAdapter.notifyDataSetChanged();
 
-                            for (int i = 0; i < dataItemResponse.length(); i++) {
-                                JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
+                    // Set Time Shimmer Ket Thuc
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 1s
+                            shimmerFrameLayout.stopShimmerAnimation();
+                            shimmerFrameLayout.setVisibility(View.GONE);
 
-                                timDonNghiResponse = new TimDonNghiResponse();
-
-                                statusID = jsonObject1.getString("statusID");
-                                String status = jsonObject1.getString("status");
-                                String leaveName = jsonObject1.getString("leaveName");
-                                String duration = jsonObject1.getString("duration");
-                                String taken = jsonObject1.getString("taken");
-                                String nguoiPheDuyet = jsonObject1.getString("nguoiPheDuyet");
-                                leaveRecordID = jsonObject1.getString("leaveRecordID");
-
-                                timDonNghiResponse.setStatusID(statusID);
-                                timDonNghiResponse.setStatus(status);
-                                timDonNghiResponse.setLeaveName(leaveName);
-                                timDonNghiResponse.setDuration(duration);
-                                timDonNghiResponse.setTaken(taken);
-                                timDonNghiResponse.setNguoiPheDuyet(nguoiPheDuyet);
-                                timDonNghiResponse.setLeaveRecordID(leaveRecordID);
-
-                                listDonNghi.add(timDonNghiResponse);
-                            }
-                            donNghiDaTaoAdapter.notifyDataSetChanged();
-
-                            // Set Time Shimmer Ket Thuc
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // Do something after 2s
-                                    shimmerFrameLayout.stopShimmerAnimation();
-                                    shimmerFrameLayout.setVisibility(View.GONE);
-
-                                    // Set Text ket qua Don Nghi
-                                    binding.donNghiPhepTextViewKetQua.setVisibility(View.VISIBLE);
-                                    binding.donNghiPhepTextViewKetQua.setText(listDonNghi.size() + " Kết quả");
-                                }
-                            }, 1200);
-
-                        } catch (Exception e) {
-                            Log.d("TAG Message", e.getMessage());
+                            // Set Text ket qua Don Nghi
+                            binding.donNghiPhepTextViewKetQua.setVisibility(View.VISIBLE);
+                            binding.donNghiPhepTextViewKetQua.setText(listDonNghi.size() + " Kết quả");
                         }
-                    }
+                    }, 1000);
 
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                } catch (Exception e) {
+                    Log.d("TAG Message", e.getMessage());
+                }
+            }
 
-                    }
-                });
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });

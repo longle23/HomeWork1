@@ -5,15 +5,18 @@ import com.google.gson.JsonObject;
 import fis.ihrp.longlh.homework1.model.CapNhatDonRequest;
 import fis.ihrp.longlh.homework1.model.ChiTietDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.ChuyenDuyetRequest;
+import fis.ihrp.longlh.homework1.model.DuyetDonRequest;
 import fis.ihrp.longlh.homework1.model.FindEmployeeRequest;
 import fis.ihrp.longlh.homework1.model.ListFuncionRequest;
 import fis.ihrp.longlh.homework1.model.LoaiNghiRequest;
 import fis.ihrp.longlh.homework1.model.LoginRequest;
 import fis.ihrp.longlh.homework1.model.NguoiKiemDuyetRequest;
 import fis.ihrp.longlh.homework1.model.RutDonNghiRequest;
+import fis.ihrp.longlh.homework1.model.TimDonChoDuyetRequest;
 import fis.ihrp.longlh.homework1.model.TimDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.TinhPhepRequest;
 import fis.ihrp.longlh.homework1.model.TinhTrangRequest;
+import fis.ihrp.longlh.homework1.model.TuChoiDonRequest;
 import fis.ihrp.longlh.homework1.model.XoaDonRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -68,5 +71,13 @@ public interface UserService {
     @POST("api/v1/workflow1/requester/delete")
     Call<JsonObject> xoaDon(@Body XoaDonRequest xoaDonRequest);
 
+    @POST("api/v1/workflow1/approver/find")
+    Call<JsonObject> timDonChoDuyet(@Body TimDonChoDuyetRequest timDonChoDuyetRequest);
+
+    @POST("api/v1/workflow1/approver/update")
+    Call<JsonObject> duyetDon(@Body DuyetDonRequest duyetDonRequest);
+
+    @POST("api/v1/workflow1/approver/update")
+    Call<JsonObject> tuChoiDon(@Body TuChoiDonRequest tuChoiDonRequest);
 
 }

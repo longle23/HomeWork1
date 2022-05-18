@@ -1,7 +1,5 @@
 package fis.ihrp.longlh.homework1.dialog;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,34 +9,27 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import fis.ihrp.longlh.homework1.R;
 
-public class ThanhCongDialog extends DialogFragment {
+public class ChuyenDuyetFailDialog extends DialogFragment {
 
-    //Được dùng khi khởi tạo dialog mục đích nhận giá trị
-    public static ThanhCongDialog newInstance(String data) {
-        ThanhCongDialog thanhCongDialog = new ThanhCongDialog();
+    public static ChuyenDuyetFailDialog newInstance(String data) {
+        ChuyenDuyetFailDialog duyetFailDialog = new ChuyenDuyetFailDialog();
         Bundle args = new Bundle();
         args.putString("data", data);
-        thanhCongDialog.setArguments(args);
-        return thanhCongDialog;
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
+        duyetFailDialog.setArguments(args);
+        return duyetFailDialog;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.layout_thongbao_thanhcong, container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.layout_duyetfail, container);
 
-        View view = inflater.inflate(R.layout.layout_thanhcong, container, false);
+        View view = inflater.inflate(R.layout.layout_duyetfail, container, false);
         // Set transparent background and no title
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -51,12 +42,11 @@ public class ThanhCongDialog extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button buttonOK = view.findViewById(R.id.rutDon_button_ok);
+        Button buttonOK = view.findViewById(R.id.thatBai_button_ok);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getDialog().dismiss();
-                ((Activity) getContext()).finish();
             }
         });
     }

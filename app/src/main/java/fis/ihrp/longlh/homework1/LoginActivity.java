@@ -1,7 +1,6 @@
 package fis.ihrp.longlh.homework1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fis.ihrp.longlh.homework1.databinding.ActivityMainBinding;
-import fis.ihrp.longlh.homework1.dialog.ThanhCongDialog;
 import fis.ihrp.longlh.homework1.model.LoginRequest;
 import fis.ihrp.longlh.homework1.service.RetrofitClient;
 import fis.ihrp.longlh.homework1.service.UserService;

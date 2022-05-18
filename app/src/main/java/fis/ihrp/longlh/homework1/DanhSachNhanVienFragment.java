@@ -144,7 +144,7 @@ public class DanhSachNhanVienFragment extends Fragment {
         userService2.findEmployee(model).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                // Test ket qua response tra ve du lieu la gi
+                // Test giá call API la gi
 //                Log.d("TAG", "onResponse: " + bodyToString(call.request().body()));
 
                 // Lay các trường trong Json tra ve

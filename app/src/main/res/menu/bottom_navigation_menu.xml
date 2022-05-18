@@ -12,8 +12,13 @@
         android:title="Đăng ký" />
 
     <item
-        android:id="@+id/navigation_donNghi"
-        android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="Đơn nghỉ" />
+        android:id="@+id/navigation_danhSach"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="Danh sách" />
+
+    <item
+        android:id="@+id/navigation_pheDuyet"
+        android:icon="@drawable/ic_baseline_checklist_24"
+        android:title="Phê duyệt" />
 
 </menu>

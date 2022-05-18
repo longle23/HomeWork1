@@ -16,32 +16,32 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_check_circle_24" />
+            android:src="@drawable/ic_that_bai" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="THÀNH CÔNG"
+            android:text="THẤT BẠI"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/thongBao_thanhCong_content"
+            android:id="@+id/thatBai_textView_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:text="Xử lý thành công"
+            android:text="Số ngày nghỉ phép không hợp lệ"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/rutDon_button_ok"
+            android:id="@+id/thatBai_button_ok"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#14C807"
+            android:backgroundTint="#F93D3D"
             android:text="OK" />
 
     </LinearLayout>

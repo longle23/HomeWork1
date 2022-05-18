@@ -1,7 +1,6 @@
 package fis.ihrp.longlh.homework1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,11 +37,15 @@ public class DanhSachNhanVienActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         return true;
 
-                    case R.id.navigation_donNghi:
+                    case R.id.navigation_danhSach:
                         fragment = new DanhSachFragment();
                         loadFragment(fragment);
                         return true;
 
+                    case R.id.navigation_pheDuyet:
+                        fragment = new PheDuyetFragment();
+                        loadFragment(fragment);
+                        return true;
                 }
                 return false;
             }
