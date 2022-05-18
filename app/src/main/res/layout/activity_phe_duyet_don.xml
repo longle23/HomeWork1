@@ -53,7 +53,7 @@
                 android:id="@+id/pheDuyet_tv_soDonDuyet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="30dp"
                 android:text="5"
                 android:textColor="@color/tinhTrang_xanhDuong"
                 android:textSize="18dp"
