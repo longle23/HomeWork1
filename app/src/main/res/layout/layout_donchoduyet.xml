@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_donChoDuyet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    android:layout_height="wrap_content">
 
+    
+    <LinearLayout
+        android:id="@+id/swipe_bottom_right"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <com.daimajia.swipe.SwipeLayout
-        android:layout_margin="5dp"
-        android:id="@+id/swipe_donChoDuyet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/swipe_bottom_right"
-            android:layout_width="200dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/donChoDuyet_bt_duyet"
+            android:layout_width="0dp"
+            app:cornerRadius="10dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:backgroundTint="@color/duyetDon_btn_duyet_xanhLa"
+            android:drawableTop="@drawable/ic_baseline_check_244"
+            android:text="DUYỆT"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/donChoDuyet_bt_duyet"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/duyetDon_xanhLa"
-                android:text="DUYỆT" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/donChoDuyet_bt_tuChoi"
+            android:layout_width="0dp"
+            app:cornerRadius="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/duyetDon_btn_tuChoi_do"
+            android:drawableTop="@drawable/ic_baseline_close_24"
+            android:text="TỪ CHỐI"
+            android:textStyle="bold" />
 
-            <Button
-                android:layout_marginLeft="5dp"
-                android:id="@+id/donChoDuyet_bt_tuChoi"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/tinhTrang_do"
-                android:text="TỪ CHỐI" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:id="@+id/donChoDuyet_linear_layoutDonChoDuyet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:paddingBottom='15dp'
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/donChoDuyet_cardView_anh"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
+                <ImageView
+                    android:id="@+id/donChoDuyet_imgView_anh"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    app:cardCornerRadius="16dp">
-
-                    <ImageView
-                        android:id="@+id/donChoDuyet_imgView_anh"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_account_circle_24" />
-
-                </androidx.cardview.widget.CardView>
+                    android:src="@drawable/ic_baseline_account_circle_24" />
 
                 <TextView
                     android:id="@+id/donChoDuyet_tv_tenNguoi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:text="--ten nguoi gui"
                     android:textSize="15dp"
@@ -84,7 +83,7 @@
                 android:id="@+id/donChoDuyet_tv_loaiNghi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="17dp"
                 android:layout_marginTop="8dp"
                 android:text="--loai nghi"
                 android:textSize="17dp"
@@ -93,7 +92,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="17dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
@@ -106,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:layout_marginRight="30dp"
                     android:text="Số ngày nghỉ" />
 
             </LinearLayout>
@@ -113,7 +113,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="17dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -129,12 +129,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="--so ngay"
+                    android:paddingRight="50dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </com.daimajia.swipe.SwipeLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.cardview.widget.CardView>
+
+</com.daimajia.swipe.SwipeLayout>

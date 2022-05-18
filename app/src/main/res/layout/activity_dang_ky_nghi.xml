@@ -51,7 +51,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="35dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="aaaaaaaaaaaa"
+                    android:text="000"
                     android:textSize="20dp"
                     android:visibility="gone" />
 
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="180dp"
-                android:backgroundTint="@color/duyetDon_xanhLa"
+                android:backgroundTint="@color/duyetDon_btn_duyet_xanhLa"
                 android:drawableLeft="@drawable/ic_baseline_check_244"
                 android:elevation="20dp"
                 android:text="DUYỆT"
@@ -287,8 +287,8 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                android:backgroundTint="@color/tinhTrang_do"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/duyetDon_btn_tuChoi_do"
                 android:drawableLeft="@drawable/ic_baseline_close_24"
                 android:elevation="20dp"
                 android:text="TỪ CHỐI"

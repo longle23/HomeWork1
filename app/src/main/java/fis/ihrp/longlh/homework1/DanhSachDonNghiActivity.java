@@ -499,7 +499,7 @@ public class DanhSachDonNghiActivity extends AppCompatActivity implements TinhTr
                             binding.donNghiPhepTextViewKetQua.setVisibility(View.VISIBLE);
                             binding.donNghiPhepTextViewKetQua.setText(listDonNghi.size() + " Kết quả");
                         }
-                    }, 1000);
+                    }, 800);
 
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());

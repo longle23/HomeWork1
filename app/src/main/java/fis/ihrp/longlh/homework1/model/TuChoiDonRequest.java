@@ -11,9 +11,9 @@ public class TuChoiDonRequest {
     @Expose
     private String appVersion;
 
-    @SerializedName("DataHeader")
+    @SerializedName("DataItem")
     @Expose
-    private List<Param> dataHeader = null;
+    private List<Param> dataItem = null;
 
     @SerializedName("LangID")
     @Expose
@@ -31,12 +31,12 @@ public class TuChoiDonRequest {
         this.appVersion = appVersion;
     }
 
-    public List<Param> getDataHeader() {
-        return dataHeader;
+    public List<Param> getDataItem() {
+        return dataItem;
     }
 
-    public void setDataHeader(List<Param> dataHeader) {
-        this.dataHeader = dataHeader;
+    public void setDataItem(List<Param> dataItem) {
+        this.dataItem = dataItem;
     }
 
     public String getLangID() {
@@ -55,9 +55,9 @@ public class TuChoiDonRequest {
         this.stoken = stoken;
     }
 
-    public TuChoiDonRequest(String appVersion, List<Param> dataHeader, String langID, String stoken) {
+    public TuChoiDonRequest(String appVersion, List<Param> dataItem, String langID, String stoken) {
         this.appVersion = appVersion;
-        this.dataHeader = dataHeader;
+        this.dataItem = dataItem;
         this.langID = langID;
         this.stoken = stoken;
     }

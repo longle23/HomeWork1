@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
@@ -42,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOnclick, TuChoiDuyetOnclick {
+public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOnclick, TuChoiDuyetOnclick, TuChoiDuyetDialog.TuChoiDuyetDialogListener {
 
     // Khai bao bien binding
     private ActivityPheDuyetDonBinding binding;
@@ -98,6 +99,17 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         binding.pheDuyetRecyclerViewListDonChoDuyet.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        listDonChoDuyet.clear();
+        binding.pheDuyetTvSoDonDuyet.setVisibility(View.GONE);
+        binding.pheDuyetTvKetQua.setVisibility(View.GONE);
+        donChoDuyetAdapter.notifyDataSetChanged();
+
+        goiAPI_TimDonChoDuyet(layToken());
+    }
 
     // Ham tra ve Token de goi API
     private String layToken() {
@@ -166,6 +178,8 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
                     JSONArray dataItemResponse = jsonObject.getJSONArray("dataItem");
                     Log.d("TAG", "DonChoDuyet Response: " + dataItemResponse);
 
+                    listDonChoDuyet.clear();
+
                     for (int i = 0; i < dataItemResponse.length(); i++) {
                         JSONObject jsonObject1 = dataItemResponse.getJSONObject(i);
 
@@ -214,7 +228,7 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
                             binding.pheDuyetTvKetQua.setVisibility(View.VISIBLE);
                             binding.pheDuyetTvSoDonDuyet.setVisibility(View.VISIBLE);
                         }
-                    }, 1000);
+                    }, 800);
 
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());
@@ -238,14 +252,14 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         DuyetDonRequest.Param param = new DuyetDonRequest.Param();
         param.setApprove("1");
         param.setComment("");
-        param.setID(timDonChoDuyetResponse.getLeaveRecordID());
+        param.setID(leaveRecordSelected1);
 
         params.add(param);
 
         // Khoi tao Request Model
         DuyetDonRequest model = new DuyetDonRequest();
         model.setAppVersion("V33.PNJ.20200827.2");
-        model.setDataHeader(params);
+        model.setDataItem(params);
         model.setLangID("vn");
         model.setStoken(token);
 
@@ -296,15 +310,15 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         List<TuChoiDonRequest.Param> params = new ArrayList<>();
         TuChoiDonRequest.Param param = new TuChoiDonRequest.Param();
         param.setApprove("0");
-        param.setComment("");
-        param.setID("");
+        param.setComment(minput);
+        param.setID(leaveRecordSelected2);
 
         params.add(param);
 
         // Khoi tao Request Model
         TuChoiDonRequest model = new TuChoiDonRequest();
         model.setAppVersion("V33.PNJ.20200827.2");
-        model.setDataHeader(params);
+        model.setDataItem(params);
         model.setLangID("vn");
         model.setStoken(token);
 
@@ -312,14 +326,14 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 // Test giá call API la gi
-                Log.d("TAG", "DuyetDon Request: " + bodyToString(call.request().body()));
+                Log.d("TAG", "TuChoiDon Request: " + bodyToString(call.request().body()));
 
                 try {
                     // Lay các trường trong Json tra ve
                     String jsonResponse = response.body().toString();
 
                     JSONObject jsonObject = new JSONObject(jsonResponse);
-                    Log.d("TAG", "DuyetDon Response: " + jsonObject);
+                    Log.d("TAG", "TuChoiDon Response: " + jsonObject);
 
                     String code = jsonObject.getString("code");
 
@@ -346,23 +360,43 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         });
     }
 
-
+    private String leaveRecordSelected1;
     @Override
-    public void duyetDon(String leaveRecordID) {
+    public void nutDuyetSwipe(String leaveRecordID) {
+        leaveRecordSelected1 = leaveRecordID;
+
         // Call API Duyet Don
         goiAPI_DuyetDon(layToken());
+
+        listDonChoDuyet.clear();
+        binding.pheDuyetTvSoDonDuyet.setVisibility(View.GONE);
+        binding.pheDuyetTvKetQua.setVisibility(View.GONE);
+        donChoDuyetAdapter.notifyDataSetChanged();
+
+        // Call API Hien Thi Danh Sach Don Cho Duyet
+        goiAPI_TimDonChoDuyet(layToken());
     }
 
+    private String leaveRecordSelected2;
     @Override
-    public void OnItemSelected1() {
+    public void nutTuChoiSwipe(String leaveRecordID) {
         FragmentManager fm = getSupportFragmentManager();
-        TuChoiDuyetDialog editNameDialogFragment = TuChoiDuyetDialog.newInstance("Some Title");
+        TuChoiDuyetDialog editNameDialogFragment = TuChoiDuyetDialog.newInstance(leaveRecordID);
         editNameDialogFragment.show(fm, "fragment_edit_name");
+
+        leaveRecordSelected2 = leaveRecordID;
     }
 
+    // Tao bien lay Ly Do nhap vao tu Dialog
+    private String minput;
+    // Lay Input Ly Do tu Dialog Tu Choi, roi Call API TuChoiDon
     @Override
-    public void OnItemSelected2(String leaveRecordID) {
-        // Call API Duyet Don
+    public void sendInput(String inputText) {
+        Log.d("TAG", "SendInput: got the input: " + inputText);
+
+        minput = inputText;
+
+        // Call API Tu Choi Don
         goiAPI_TuChoiDon(layToken());
     }
 

@@ -1,5 +1,7 @@
 package fis.ihrp.longlh.homework1.dialog;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,17 +12,22 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import fis.ihrp.longlh.homework1.R;
@@ -28,7 +35,11 @@ import fis.ihrp.longlh.homework1.myinterface.TuChoiDuyetOnclick;
 
 public class TuChoiDuyetDialog extends DialogFragment {
 
-    private TuChoiDuyetOnclick callback;
+    public interface TuChoiDuyetDialogListener {
+        void sendInput(String inputText);
+    }
+
+    public TuChoiDuyetDialogListener tuChoiDuyetDialogListener;
 
     //Được dùng khi khởi tạo dialog mục đích nhận giá trị
     public static TuChoiDuyetDialog newInstance(String data) {
@@ -49,7 +60,20 @@ public class TuChoiDuyetDialog extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
+
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        {
+            super.onAttach(context);
+            try {
+                tuChoiDuyetDialogListener = (TuChoiDuyetDialogListener) getActivity();
+            } catch (ClassCastException e) {
+                Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -90,11 +114,14 @@ public class TuChoiDuyetDialog extends DialogFragment {
         });
 
         // Su kien nut OK
-        Button btOK = view.findViewById(R.id.tuChoiDuyet_bt_ok);
-        btOK.setOnClickListener(new View.OnClickListener() {
+        EditText tuChoiDuyet_ed_lyDo = view.findViewById(R.id.tuChoiDuyet_ed_lyDo);
+        Button tuChoiDuyet_bt_ok = view.findViewById(R.id.tuChoiDuyet_bt_ok);
+        tuChoiDuyet_bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                callback
+                String input = tuChoiDuyet_ed_lyDo.getText().toString();
+                tuChoiDuyetDialogListener.sendInput(input);
+                getDialog().dismiss();
             }
         });
 
@@ -110,7 +137,7 @@ public class TuChoiDuyetDialog extends DialogFragment {
 //        params.width = 1370;
 //        window.setAttributes(params);
 
-        getDialog().getWindow().setLayout(1200, 710);
+        getDialog().getWindow().setLayout(1200, 740);
     }
 
 

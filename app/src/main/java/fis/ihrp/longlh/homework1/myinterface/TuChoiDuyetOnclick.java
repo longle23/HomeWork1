@@ -1,7 +1,6 @@
 package fis.ihrp.longlh.homework1.myinterface;
 
 public interface TuChoiDuyetOnclick {
-    void OnItemSelected1();
+    void nutTuChoiSwipe(String leaveRecordID);
 
-    void OnItemSelected2(String leaveRecordID);
 }

@@ -20,6 +20,7 @@
 
     <color name="colorGrey">#dddddd</color>
 
-    <color name="duyetDon_xanhLa">#29D55D</color>
+    <color name="duyetDon_btn_duyet_xanhLa">#29D55D</color>
+    <color name="duyetDon_btn_tuChoi_do">#FF6B6B</color>
 
 </resources>

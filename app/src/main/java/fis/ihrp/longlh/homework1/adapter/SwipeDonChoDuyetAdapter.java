@@ -33,13 +33,13 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
 
     private ArrayList<TimDonChoDuyetResponse> listDonChoDuyet;
     private Context context;
-    private DuyetDonOnclick callback;
+    private DuyetDonOnclick callback1;
     private TuChoiDuyetOnclick callback2;
 
     public SwipeDonChoDuyetAdapter(ArrayList<TimDonChoDuyetResponse> listDonChoDuyet, Context context, DuyetDonOnclick callback, TuChoiDuyetOnclick callback2) {
         this.listDonChoDuyet = listDonChoDuyet;
         this.context = context;
-        this.callback = callback;
+        this.callback1 = callback;
         this.callback2 = callback2;
     }
 
@@ -106,7 +106,7 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
         holder.donChoDuyet_bt_duyet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.duyetDon(timDonChoDuyetResponse.getLeaveRecordID());
+                callback1.nutDuyetSwipe(timDonChoDuyetResponse.getLeaveRecordID());
             }
         });
 
@@ -114,7 +114,7 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
         holder.donChoDuyet_bt_tuChoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback2.OnItemSelected1();
+                callback2.nutTuChoiSwipe(timDonChoDuyetResponse.getLeaveRecordID());
             }
         });
 
@@ -152,7 +152,6 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout donChoDuyet_linear_layoutDonChoDuyet;
-        CardView donChoDuyet_cardView_anh;
         ImageView donChoDuyet_imgView_anh;
         TextView donChoDuyet_tv_tenNguoi, donChoDuyet_tv_loaiNghi,donChoDuyet_tv_thoiGianNghi,donChoDuyet_tv_soNgayNghi;
 
@@ -163,7 +162,6 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
             super(donChoDuyetView);
 
             donChoDuyet_linear_layoutDonChoDuyet = donChoDuyetView.findViewById(R.id.donChoDuyet_linear_layoutDonChoDuyet);
-            donChoDuyet_cardView_anh = donChoDuyetView.findViewById(R.id.donChoDuyet_cardView_anh);
             donChoDuyet_imgView_anh = donChoDuyetView.findViewById(R.id.donChoDuyet_imgView_anh);
 
             donChoDuyet_tv_tenNguoi = donChoDuyetView.findViewById(R.id.donChoDuyet_tv_tenNguoi);

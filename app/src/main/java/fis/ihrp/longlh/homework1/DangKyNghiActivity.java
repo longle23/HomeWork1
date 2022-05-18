@@ -36,6 +36,7 @@ import fis.ihrp.longlh.homework1.dialog.DuyetDonDialog;
 import fis.ihrp.longlh.homework1.dialog.ThanhCongDialog;
 import fis.ihrp.longlh.homework1.dialog.ChuyenDuyetSuccessDialog;
 import fis.ihrp.longlh.homework1.dialog.ChuyenDuyetFailDialog;
+import fis.ihrp.longlh.homework1.dialog.TuChoiDuyetDialog;
 import fis.ihrp.longlh.homework1.model.CapNhatDonRequest;
 import fis.ihrp.longlh.homework1.model.ChiTietDonNghiRequest;
 import fis.ihrp.longlh.homework1.model.ChiTietDonNghiResponse;
@@ -59,7 +60,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOnclick {
+public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOnclick, TuChoiDuyetDialog.TuChoiDuyetDialogListener {
 
     private LoaiNghiResponse loaiNghiResponse;
     private NguoiKiemDuyetResponse nguoiKiemDuyetResponse;
@@ -235,7 +236,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
 
             }
 
-        } else if(mode3 != null && mode3.equalsIgnoreCase("chiTietDuyetDon")){
+        } else if (mode3 != null && mode3.equalsIgnoreCase("chiTietDuyetDon")) {
             binding.dangKyNghiButtonTinhPhep.setVisibility(View.GONE);
             binding.dangKyNghiButtonChuyenDuyet.setVisibility(View.GONE);
 
@@ -254,7 +255,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
             // Call API Nguoi Kiem Duyet
             goiAPI_NguoiKiemDuyet(layToken());
 
-            // Lay du lieu Don Nghi set lên View
+            // Lay du lieu Don Cho Duyet set lên View
             String empName = getIntent().getExtras().getString("empName");
             leaveRecordID = getIntent().getExtras().getString("leaveRecordID");
             String leaveName = getIntent().getExtras().getString("leaveName");
@@ -270,13 +271,19 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
             binding.dangKyNghiEditTextNgayNghi.setText(taken);
             binding.dangKyNghiEditTextLyDo.setText(reason);
 
+            // Hien Dialog khi nhap vao button Tu Choi
+            binding.dangKyNghiButtonTuChoi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    TuChoiDuyetDialog editNameDialogFragment = TuChoiDuyetDialog.newInstance("Some Title");
+                    editNameDialogFragment.show(fm, "fragment_edit_name");
+                }
+            });
+
             // Call API Duyet Don
             goiAPI_DuyetDon(layToken());
-
-            // Call API Duyet Don
-            goiAPI_TuChoiDon(layToken());
         }
-
 
     }
 
@@ -1019,7 +1026,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
                 // Khoi tao Request Model
                 DuyetDonRequest model = new DuyetDonRequest();
                 model.setAppVersion("V33.PNJ.20200827.2");
-                model.setDataHeader(params);
+                model.setDataItem(params);
                 model.setLangID("vn");
                 model.setStoken(token);
 
@@ -1067,64 +1074,58 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
 
     // Ham Goi API Tu Choi Don
     private void goiAPI_TuChoiDon(String token) {
-        binding.dangKyNghiButtonTuChoi.setOnClickListener(new View.OnClickListener() {
+        // Khoi tao API
+        userService4 = RetrofitClient.getClient();
+
+        // Set du lieu vao DataHeader
+        List<TuChoiDonRequest.Param> params = new ArrayList<>();
+        TuChoiDonRequest.Param param = new TuChoiDonRequest.Param();
+        param.setApprove("0");
+        param.setComment(minput);
+        param.setID(leaveRecordID);
+
+        params.add(param);
+
+        // Khoi tao Request Model
+        TuChoiDonRequest model = new TuChoiDonRequest();
+        model.setAppVersion("V33.PNJ.20200827.2");
+        model.setDataItem(params);
+        model.setLangID("vn");
+        model.setStoken(token);
+
+        userService4.tuChoiDon(model).enqueue(new Callback<JsonObject>() {
             @Override
-            public void onClick(View view) {
-                // Khoi tao API
-                userService4 = RetrofitClient.getClient();
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                // Test giá call API la gi
+                Log.d("TAG", "TuChoiDon Request: " + bodyToString(call.request().body()));
 
-                // Set du lieu vao DataHeader
-                List<TuChoiDonRequest.Param> params = new ArrayList<>();
-                TuChoiDonRequest.Param param = new TuChoiDonRequest.Param();
-                param.setApprove("0");
-                param.setComment("");
-                param.setID("");
+                try {
+                    // Lay các trường trong Json tra ve
+                    String jsonResponse = response.body().toString();
 
-                params.add(param);
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
+                    Log.d("TAG", "TuChoiDon Response: " + jsonObject);
 
-                // Khoi tao Request Model
-                TuChoiDonRequest model = new TuChoiDonRequest();
-                model.setAppVersion("V33.PNJ.20200827.2");
-                model.setDataHeader(params);
-                model.setLangID("vn");
-                model.setStoken(token);
+                    String code = jsonObject.getString("code");
 
-                userService4.tuChoiDon(model).enqueue(new Callback<JsonObject>() {
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        // Test giá call API la gi
-                        Log.d("TAG", "DuyetDon Request: " + bodyToString(call.request().body()));
-
-                        try {
-                            // Lay các trường trong Json tra ve
-                            String jsonResponse = response.body().toString();
-
-                            JSONObject jsonObject = new JSONObject(jsonResponse);
-                            Log.d("TAG", "DuyetDon Response: " + jsonObject);
-
-                            String code = jsonObject.getString("code");
-
-                            // Xu li xuat hien man hinh thong bao
-                            if (code.equalsIgnoreCase("0")) {
-                                FragmentManager fm = getSupportFragmentManager();
-                                ThanhCongDialog editNameDialogFragment = ThanhCongDialog.newInstance("Some Title");
-                                editNameDialogFragment.show(fm, "fragment_edit_name");
-                            } else if (code.equalsIgnoreCase("2")) {
-                                FragmentManager fm = getSupportFragmentManager();
-                                ChuyenDuyetFailDialog editNameDialogFragment = ChuyenDuyetFailDialog.newInstance("Some Title");
-                                editNameDialogFragment.show(fm, "fragment_edit_name");
-                            }
-
-                        } catch (Exception e) {
-                            Log.d("TAG Message", e.getMessage());
-                        }
+                    // Xu li xuat hien man hinh thong bao
+                    if (code.equalsIgnoreCase("0")) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        ThanhCongDialog editNameDialogFragment = ThanhCongDialog.newInstance("Some Title");
+                        editNameDialogFragment.show(fm, "fragment_edit_name");
+                    } else if (code.equalsIgnoreCase("2")) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        ChuyenDuyetFailDialog editNameDialogFragment = ChuyenDuyetFailDialog.newInstance("Some Title");
+                        editNameDialogFragment.show(fm, "fragment_edit_name");
                     }
 
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                } catch (Exception e) {
+                    Log.d("TAG Message", e.getMessage());
+                }
+            }
 
-                    }
-                });
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });
@@ -1133,7 +1134,6 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
 
     @Override
     public void OnItemSelected(String id, String name, String codeId) {
-
         switch (codeId) {
             case "100": {
 //                Toast.makeText(this, id + name, Toast.LENGTH_SHORT).show();
@@ -1144,8 +1144,21 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
                 bottomSheetDialogLoaiNghi.dismiss();
                 break;
             }
-
         }
+    }
+
+    // Tao bien lay Ly Do nhap vao tu Dialog
+    private String minput;
+
+    // Lay Input Ly Do tu Dialog Tu Choi, roi Call API TuChoiDon
+    @Override
+    public void sendInput(String inputText) {
+        Log.d("TAG", "SendInput: got the input: " + inputText);
+
+        minput = inputText;
+
+        // Call API Tu Choi Don
+        goiAPI_TuChoiDon(layToken());
     }
 
 
