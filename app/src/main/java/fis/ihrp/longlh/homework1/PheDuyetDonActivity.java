@@ -310,7 +310,7 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         List<TuChoiDonRequest.Param> params = new ArrayList<>();
         TuChoiDonRequest.Param param = new TuChoiDonRequest.Param();
         param.setApprove("0");
-        param.setComment(minput);
+        param.setComment(nhapLyDo);
         param.setID(leaveRecordSelected2);
 
         params.add(param);
@@ -373,8 +373,17 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
         binding.pheDuyetTvKetQua.setVisibility(View.GONE);
         donChoDuyetAdapter.notifyDataSetChanged();
 
-        // Call API Hien Thi Danh Sach Don Cho Duyet
-        goiAPI_TimDonChoDuyet(layToken());
+        // Set Time Shimmer Ket Thuc
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                // Call API Hien Thi Danh Sach Don Cho Duyet
+                goiAPI_TimDonChoDuyet(layToken());
+            }
+        }, 500);
+
     }
 
     private String leaveRecordSelected2;
@@ -388,16 +397,24 @@ public class PheDuyetDonActivity extends AppCompatActivity implements DuyetDonOn
     }
 
     // Tao bien lay Ly Do nhap vao tu Dialog
-    private String minput;
+    private String nhapLyDo;
     // Lay Input Ly Do tu Dialog Tu Choi, roi Call API TuChoiDon
     @Override
     public void sendInput(String inputText) {
         Log.d("TAG", "SendInput: got the input: " + inputText);
 
-        minput = inputText;
+        nhapLyDo = inputText;
 
         // Call API Tu Choi Don
         goiAPI_TuChoiDon(layToken());
+
+        listDonChoDuyet.clear();
+        binding.pheDuyetTvSoDonDuyet.setVisibility(View.GONE);
+        binding.pheDuyetTvKetQua.setVisibility(View.GONE);
+        donChoDuyetAdapter.notifyDataSetChanged();
+
+        // Call API Hien Thi Danh Sach Don Cho Duyet
+        goiAPI_TimDonChoDuyet(layToken());
     }
 
 

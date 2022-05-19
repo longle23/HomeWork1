@@ -36,6 +36,11 @@ public class DuyetDonDialog extends DialogFragment {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
+
+        // Click ben ngoai Dialog khong bi tat
+        getDialog().setCancelable(false);
+        getDialog().setCanceledOnTouchOutside(false);
+
         return view;
     }
 

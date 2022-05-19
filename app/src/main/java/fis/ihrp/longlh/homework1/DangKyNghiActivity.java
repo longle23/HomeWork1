@@ -1011,6 +1011,8 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
         binding.dangKyNghiButtonDuyet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProcess();
+
                 // Khoi tao API
                 userService4 = RetrofitClient.getClient();
 
@@ -1055,6 +1057,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
                                 ChuyenDuyetFailDialog editNameDialogFragment = ChuyenDuyetFailDialog.newInstance("Some Title");
                                 editNameDialogFragment.show(fm, "fragment_edit_name");
                             }
+                            hideProcess();
 
                         } catch (Exception e) {
                             Log.d("TAG Message", e.getMessage());
@@ -1074,6 +1077,8 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
 
     // Ham Goi API Tu Choi Don
     private void goiAPI_TuChoiDon(String token) {
+        showProcess();
+
         // Khoi tao API
         userService4 = RetrofitClient.getClient();
 
@@ -1081,7 +1086,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
         List<TuChoiDonRequest.Param> params = new ArrayList<>();
         TuChoiDonRequest.Param param = new TuChoiDonRequest.Param();
         param.setApprove("0");
-        param.setComment(minput);
+        param.setComment(nhapLyDo);
         param.setID(leaveRecordID);
 
         params.add(param);
@@ -1118,6 +1123,7 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
                         ChuyenDuyetFailDialog editNameDialogFragment = ChuyenDuyetFailDialog.newInstance("Some Title");
                         editNameDialogFragment.show(fm, "fragment_edit_name");
                     }
+                    hideProcess();
 
                 } catch (Exception e) {
                     Log.d("TAG Message", e.getMessage());
@@ -1126,10 +1132,26 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                // Hide process
+                // Thông báo lỗi
+                hideProcess();
             }
         });
 
+    }
+
+    private void showProcess() {
+        binding.dangKyNghiProgressBarXuLy.setVisibility(View.VISIBLE);
+
+        binding.dangKyNghiButtonDuyet.setVisibility(View.GONE);
+        binding.dangKyNghiButtonTuChoi.setVisibility(View.GONE);
+    }
+
+    private void hideProcess() {
+        binding.dangKyNghiProgressBarXuLy.setVisibility(View.GONE);
+
+        binding.dangKyNghiButtonDuyet.setVisibility(View.VISIBLE);
+        binding.dangKyNghiButtonTuChoi.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -1148,14 +1170,14 @@ public class DangKyNghiActivity extends AppCompatActivity implements TinhTrangOn
     }
 
     // Tao bien lay Ly Do nhap vao tu Dialog
-    private String minput;
+    private String nhapLyDo;
 
     // Lay Input Ly Do tu Dialog Tu Choi, roi Call API TuChoiDon
     @Override
     public void sendInput(String inputText) {
         Log.d("TAG", "SendInput: got the input: " + inputText);
 
-        minput = inputText;
+        nhapLyDo = inputText;
 
         // Call API Tu Choi Don
         goiAPI_TuChoiDon(layToken());

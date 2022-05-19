@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
                 JSONObject jsonObject = null;
                 try {
                     hideProcess();
+
                     Boolean codeResponse = null;
                     String messageResponse = "";
 

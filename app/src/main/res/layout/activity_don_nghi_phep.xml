@@ -133,6 +133,8 @@
             android:drawableLeft="@drawable/ic_baseline_search_244"
             android:elevation="20dp"
             android:text="TÌM KIẾM"
+            android:paddingLeft="110dp"
+            android:paddingRight="110dp"
             android:textColor="#FFFFFF" />
 
         <TextView

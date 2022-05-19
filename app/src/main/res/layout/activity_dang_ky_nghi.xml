@@ -240,6 +240,8 @@
                 android:backgroundTint="@color/cam"
                 android:drawableLeft="@drawable/ic_baseline_file_download_24"
                 android:elevation="20dp"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp"
                 android:text="RÚT LẠI ĐƠN"
                 android:textColor="#FFFFFF"
                 android:visibility="gone" />
@@ -253,6 +255,8 @@
                 android:backgroundTint="@color/tinhTrang_xanhDuong"
                 android:drawableLeft="@drawable/ic_baseline_near_me_24"
                 android:elevation="20dp"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp"
                 android:text="CHUYỂN DUYỆT"
                 android:textColor="#FFFFFF"
                 android:visibility="gone" />
@@ -266,6 +270,8 @@
                 android:backgroundTint="@color/tinhTrang_do"
                 android:drawableLeft="@drawable/ic_baseline_close_24"
                 android:elevation="20dp"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp"
                 android:text="XÓA ĐƠN"
                 android:textColor="#FFFFFF"
                 android:visibility="gone" />
@@ -279,6 +285,8 @@
                 android:backgroundTint="@color/duyetDon_btn_duyet_xanhLa"
                 android:drawableLeft="@drawable/ic_baseline_check_244"
                 android:elevation="20dp"
+                android:paddingLeft="120dp"
+                android:paddingRight="120dp"
                 android:text="DUYỆT"
                 android:visibility="gone" />
 
@@ -291,7 +299,17 @@
                 android:backgroundTint="@color/duyetDon_btn_tuChoi_do"
                 android:drawableLeft="@drawable/ic_baseline_close_24"
                 android:elevation="20dp"
+                android:paddingLeft="120dp"
+                android:paddingRight="120dp"
                 android:text="TỪ CHỐI"
+                android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/dangKyNghi_progressBar_xuLy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
                 android:visibility="gone" />
 
         </LinearLayout>

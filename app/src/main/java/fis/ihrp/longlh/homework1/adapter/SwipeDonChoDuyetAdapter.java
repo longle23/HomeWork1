@@ -103,7 +103,7 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
         });
 
         // Xu li button Duyet
-        holder.donChoDuyet_bt_duyet.setOnClickListener(new View.OnClickListener() {
+        holder.donChoDuyet_ln_duyet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callback1.nutDuyetSwipe(timDonChoDuyetResponse.getLeaveRecordID());
@@ -111,7 +111,7 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
         });
 
         // Xu li button Tu Choi
-        holder.donChoDuyet_bt_tuChoi.setOnClickListener(new View.OnClickListener() {
+        holder.donChoDuyet_ln_tuChoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callback2.nutTuChoiSwipe(timDonChoDuyetResponse.getLeaveRecordID());
@@ -156,7 +156,8 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
         TextView donChoDuyet_tv_tenNguoi, donChoDuyet_tv_loaiNghi,donChoDuyet_tv_thoiGianNghi,donChoDuyet_tv_soNgayNghi;
 
         SwipeLayout swipe_donChoDuyet;
-        Button donChoDuyet_bt_duyet, donChoDuyet_bt_tuChoi;
+
+        LinearLayout donChoDuyet_ln_duyet, donChoDuyet_ln_tuChoi;
 
         public ViewHolder(@NonNull View donChoDuyetView) {
             super(donChoDuyetView);
@@ -170,8 +171,8 @@ public class SwipeDonChoDuyetAdapter extends RecyclerSwipeAdapter<SwipeDonChoDuy
             donChoDuyet_tv_soNgayNghi = donChoDuyetView.findViewById(R.id.donChoDuyet_tv_soNgayNghi);
 
             swipe_donChoDuyet = donChoDuyetView.findViewById(R.id.swipe_donChoDuyet);
-            donChoDuyet_bt_duyet = donChoDuyetView.findViewById(R.id.donChoDuyet_bt_duyet);
-            donChoDuyet_bt_tuChoi = donChoDuyetView.findViewById(R.id.donChoDuyet_bt_tuChoi);
+            donChoDuyet_ln_duyet = donChoDuyetView.findViewById(R.id.donChoDuyet_ln_duyet);
+            donChoDuyet_ln_tuChoi = donChoDuyetView.findViewById(R.id.donChoDuyet_ln_tuChoi);
         }
 
     }
